@@ -31,8 +31,7 @@ const tagBlogModel = require('./schema/tag.blogModel');
 const userModel = require('./schema/userModel');
 
 
-
-return{
+module.exports = {
     adminModel,
     articleBlogModel,
     articleForumModel,

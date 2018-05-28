@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/AvvocatoFlash/af-db/issues"
   },
-  "homepage": "https://github.com/AvvocatoFlash/af-db#readme"
+  "homepage": "https://github.com/AvvocatoFlash/af-db#readme",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "lodash.pick": "^4.4.0",
+    "mongoose": "^5.1.2",
+    "mongoose-double": "0.0.1",
+    "shortid": "^2.2.8"
+  }
 }

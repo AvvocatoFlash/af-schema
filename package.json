@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AvvocatoFlash/af-db.git"
+    "url": "git+https://github.com/AvvocatoFlash/af-schema.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AvvocatoFlash/af-db/issues"
+    "url": "https://github.com/AvvocatoFlash/af-schema/issues"
   },
   "homepage": "https://github.com/AvvocatoFlash/af-db#readme",
   "dependencies": {

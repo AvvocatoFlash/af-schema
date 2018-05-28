@@ -1,58 +1,65 @@
-var mongoose  = require('mongoose');
-var bcrypt    = require('bcrypt-nodejs');
-var lawyerModel = require('./lawyerModel');
-var shortid = require('shortid');
+require('mongoose');
+require('bcrypt-nodejs');
+require('./lawyerModel');
+
+const shortid = require('shortid');
 const pick = require('lodash.pick');
 
-require('mongoose-double')(mongoose);
+module.exports = (mongoose) => {
 
-var invoiceSchema = mongoose.Schema({
-    shortId:     {type: String, unique: true},
-    ref_lawyer:  { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' },
-    billing:     { type: Object },
-    credits:     { type: String, default: 0 },
-    total:       { type: String },
-    stripe:      { type: Object },
-    log:         { type: Object },
-    az_old:      { type: Boolean, default: false },
-    updated_at:  { type: Date, default: Date.now },
-    created_at:  { type: Date, default: Date.now }
-});
+    mongoose.plugin(schema => { schema.options.usePushEach = true });
 
-invoiceSchema.pre('save', function(next) {
-    if (!this.isNew) return next();
-    if(!this.created_at) this.created_at = Date.now();
-    if(!this.updated_at) this.updated_at = Date.now();
-    next();
-});
+    let invoiceSchema = mongoose.Schema({
+        shortId:     {type: String, unique: true},
+        ref_lawyer:  { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' },
+        billing:     { type: Object },
+        credits:     { type: String, default: 0 },
+        total:       { type: String },
+        stripe:      { type: Object },
+        log:         { type: Object },
+        az_old:      { type: Boolean, default: false },
+        updated_at:  { type: Date, default: Date.now },
+        created_at:  { type: Date, default: Date.now }
+    });
 
-invoiceSchema.pre('update', function(next) {
-    if(!this.updated_at) this.updated_at = Date.now();
-    next();
-});
+    invoiceSchema.pre('save', function(next) {
+        if (!this.isNew) return next();
+        if(!this.created_at) this.created_at = Date.now();
+        if(!this.updated_at) this.updated_at = Date.now();
+        next();
+    });
 
-invoiceSchema.methods = {
+    invoiceSchema.pre('update', function(next) {
+        if(!this.updated_at) this.updated_at = Date.now();
+        next();
+    });
 
-    /**
-     * Filter Keys
-     * @return {Object} Custom Keys
-     */
-    filterKeys: function() {
+    invoiceSchema.methods = {
 
-        const obj = this.toObject();
-        let filtered = pick(obj, '_id', 'shortId', 'ref_lawyer', 'billing', 'credits', 'total', 'stripe', 'log', 'az_old', 'created_at');
+        /**
+         * Filter Keys
+         * @return {Object} Custom Keys
+         */
+        filterKeys: function() {
 
-        if(filtered && filtered.stripe){
-            delete filtered.stripe.paymentObj;
-            delete filtered.stripe.card;
-            delete filtered.stripe.object;
-            delete filtered.stripe.id;
-            delete filtered.stripe.client_ip;
-            delete filtered.log;
+            const obj = this.toObject();
+            let filtered = pick(obj, '_id', 'shortId', 'ref_lawyer', 'billing', 'credits', 'total', 'stripe', 'log', 'az_old', 'created_at');
+
+            if(filtered && filtered.stripe){
+                delete filtered.stripe.paymentObj;
+                delete filtered.stripe.card;
+                delete filtered.stripe.object;
+                delete filtered.stripe.id;
+                delete filtered.stripe.client_ip;
+                delete filtered.log;
+            }
+
+            return filtered;
         }
+    };
 
-        return filtered;
-    }
+    return mongoose.model('invoice', invoiceSchema);
+
 };
 
-module.exports = mongoose.model('invoice', invoiceSchema);
+

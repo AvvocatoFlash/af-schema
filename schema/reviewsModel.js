@@ -1,26 +1,33 @@
-var userModel = require('./userModel');
+require('./userModel');
+
 const pick = require('lodash.pick');
-var mongoose  = require('mongoose');
-mongoose.plugin(schema => { schema.options.usePushEach = true });
 
-var reviewSchema = mongoose.Schema({
-    user:          { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'user' },
-    avvocato:      { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'avvocato' },
-    vote:          { type: Number, min:0, max:5, default: 0 },
-    note:          { type: String },
-    created_at:    { type: Date, default: Date.now }
-});
+module.exports = (mongoose) => {
 
-reviewSchema.pre('save', function(next) {
-    if (!this.isNew) return next()
-    if(!this.created_at) this.created_at = Date.now();
-    if(!this.updated_at) this.updated_at = Date.now();
-    next();
-});
+    mongoose.plugin(schema => { schema.options.usePushEach = true });
 
-reviewSchema.pre('update', function(next) {
-    if(!this.updated_at) this.updated_at = Date.now();
-    next();
-});
+    let reviewSchema = mongoose.Schema({
+        user:          { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'user' },
+        avvocato:      { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'avvocato' },
+        vote:          { type: Number, min:0, max:5, default: 0 },
+        note:          { type: String },
+        created_at:    { type: Date, default: Date.now }
+    });
 
-module.exports = mongoose.model('richieste', reviewSchema);
+    reviewSchema.pre('save', function(next) {
+        if (!this.isNew) return next()
+        if(!this.created_at) this.created_at = Date.now();
+        if(!this.updated_at) this.updated_at = Date.now();
+        next();
+    });
+
+    reviewSchema.pre('update', function(next) {
+        if(!this.updated_at) this.updated_at = Date.now();
+        next();
+    });
+
+    return mongoose.model('richieste', reviewSchema);
+
+};
+
+

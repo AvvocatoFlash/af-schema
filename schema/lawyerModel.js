@@ -5,6 +5,7 @@ const pick = require('lodash.pick');
 
 module.exports = (mongoose) => {
 
+    require('mongoose-double')(mongoose);
     mongoose.plugin(schema => { schema.options.usePushEach = true });
 
     let studioSchema = mongoose.Schema({

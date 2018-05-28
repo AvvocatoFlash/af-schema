@@ -1,0 +1,18 @@
+# Created by .ignore support plugin (hsz.mobi)
+.DS_Store
+.idea
+.env
+.env.local
+node_modules
+production
+production/
+node_modules/
+nodejsnpm-cache/
+production/admin/
+production/client/
+/bower_components/
+SSL/
+app/admin/assets/img/.DS_Store
+app/admin/temp/
+app/client/temp/
+

@@ -45,6 +45,34 @@ module.exports = (mongoose) => {
         next();
     });
 
+    landingSchema.methods = {
+
+        /**
+         * Filter Keys
+         * @return {Object} Custom Keys
+         */
+        publicFilterKeys: function() {
+
+            const obj = this.toObject();
+            const filtered = pick(obj, '_id', 'iconLabel', 'permalink');
+
+            return filtered;
+        },
+
+        /**
+         * Filter Keys
+         * @return {Object} Custom Keys
+         */
+        footerFilterKeys: function() {
+
+            const obj = this.toObject();
+            const filtered = pick(obj, '_id', 'footerLabel', 'permalink');
+
+            return filtered;
+        },
+
+    };
+
     return mongoose.model('landing', landingSchema);
 
 };

@@ -24,7 +24,8 @@ module.exports = (mongoose) => {
         isCategory: {type: Boolean, default: false},
         isSAM: {type: Boolean, default: false}, //to remove
         isSpecial: {type: Boolean, default: false},//to remove
-        isActive: {type: Boolean, default: false},
+        isActive: {type: Boolean, default: true},
+        isVerify: {type: Boolean, default: false},
         testimonials: {type: Array, default: [] },
         clone: {type:Boolean},
         related: [{ type: mongoose.Schema.Types.ObjectId, field: "_id" }],
@@ -45,6 +46,33 @@ module.exports = (mongoose) => {
         next();
     });
 
+    landingSchema.methods = {
+
+        /**
+         * Filter Keys
+         * @return {Object} Custom Keys
+         */
+        publicFilterKeys: function() {
+
+            const obj = this.toObject();
+            const filtered = pick(obj, '_id', 'iconLabel', 'permalink');
+
+            return filtered;
+        },
+
+        /**
+         * Filter Keys
+         * @return {Object} Custom Keys
+         */
+        footerFilterKeys: function() {
+
+            const obj = this.toObject();
+            const filtered = pick(obj, '_id', 'footerLabel', 'permalink');
+
+            return filtered;
+        },
+
+    };
 
     return mongoose.model('landing', landingSchema);
 

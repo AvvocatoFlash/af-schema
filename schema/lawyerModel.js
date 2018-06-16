@@ -124,7 +124,7 @@ lawyerSchema.methods = {
     filterKeys: function() {
 
         const obj = this.toObject();
-        const filtered = pick(obj, '_id', 'email', 'name', 'surname', 'permalink', 'image', 'isActive', 'mobile', 'filters', 'specialisations', 'token', 'type', 'onboarding', 'notifications', 'partner', 'created_at');
+        const filtered = pick(obj, '_id', 'email', 'name', 'surname', 'permalink', 'credits', 'image', 'isActive', 'mobile', 'filters', 'specialisations', 'token', 'type', 'onboarding', 'notifications', 'partner', 'created_at');
 
         return filtered;
     },
@@ -132,7 +132,7 @@ lawyerSchema.methods = {
     settingFilterKeys: function() {
 
         const obj = this.toObject();
-        const filtered = pick(obj, '_id', 'email', 'name', 'surname', 'permalink', 'image', 'isActive', 'mobile', 'filters', 'specialisations', 'token', 'type', 'onboarding', 'notifications', 'partner', 'credits', 'officeName', 'offices', 'officeNumber', 'website', 'ordine', 'ordine_anno', 'public', 'indexing', 'session_at', 'created_at');
+        const filtered = pick(obj, '_id', 'email', 'name', 'surname', 'permalink', 'credits', 'image', 'isActive', 'mobile', 'filters', 'specialisations', 'token', 'type', 'onboarding', 'notifications', 'partner', 'officeName', 'offices', 'officeNumber', 'website', 'ordine', 'ordine_anno', 'public', 'indexing', 'session_at', 'created_at');
 
         return filtered;
     },

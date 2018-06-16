@@ -1,39 +1,44 @@
-var mongoose  = require('mongoose');
-mongoose.plugin(schema => { schema.options.usePushEach = true });
 const pick = require('lodash.pick');
 
-var spiecializzazioneSchema = mongoose.Schema({
-    name:          { type: String },
-    position:      { type: Number },
-    isActive:      { type: Boolean, default: true },
-    created_at:    { type: Date, default: Date.now }
-});
+module.exports = (mongoose) => {
 
-spiecializzazioneSchema.pre('save', function(next) {
-    if (!this.isNew) return next()
-    if(!this.created_at) this.created_at = Date.now();
-    if(!this.updated_at) this.updated_at = Date.now();
-    next();
-});
+    mongoose.plugin(schema => { schema.options.usePushEach = true });
 
-spiecializzazioneSchema.pre('update', function(next) {
-    if(!this.updated_at) this.updated_at = Date.now();
-    next();
-});
+    let spiecializzazioneSchema = mongoose.Schema({
+        name:          { type: String },
+        position:      { type: Number },
+        isActive:      { type: Boolean, default: true },
+        created_at:    { type: Date, default: Date.now }
+    });
 
-spiecializzazioneSchema.methods = {
+    spiecializzazioneSchema.pre('save', function(next) {
+        if (!this.isNew) return next()
+        if(!this.created_at) this.created_at = Date.now();
+        if(!this.updated_at) this.updated_at = Date.now();
+        next();
+    });
 
-    /**
-     * Filter Keys
-     * @return {Object} Custom Keys
-     */
-    filterKeys: function() {
+    spiecializzazioneSchema.pre('update', function(next) {
+        if(!this.updated_at) this.updated_at = Date.now();
+        next();
+    });
 
-        const obj = this.toObject();
-        const filtered = pick(obj, 'name', 'position');
+    spiecializzazioneSchema.methods = {
 
-        return filtered;
-    }
+        /**
+         * Filter Keys
+         * @return {Object} Custom Keys
+         */
+        filterKeys: function() {
+
+            const obj = this.toObject();
+            const filtered = pick(obj, 'name', 'position');
+
+            return filtered;
+        }
+    };
+
+    return mongoose.model('spiecializzazione', spiecializzazioneSchema);
 };
 
-module.exports = mongoose.model('spiecializzazione', spiecializzazioneSchema);
+

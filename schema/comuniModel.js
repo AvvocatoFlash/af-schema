@@ -1,49 +1,53 @@
-const mongoose  = require('mongoose');
+// https://github.com/matteocontrini/comuni-json
+
 const bcrypt    = require('bcrypt-nodejs');
 const pick = require('lodash.pick');
 
-const zonaSchema = mongoose.Schema({
-    nome:    { type: String, enum: ["Nord-est", "Nord-ovest", "Centro", "Sud", "Isole"] },
-    codice:  { type: String }
-});
+module.exports = (mongoose) => {
 
-const regioneSchema = mongoose.Schema({
-    nome:    { type: String },
-    codice:  { type: String }
-});
+    mongoose.plugin(schema => { schema.options.usePushEach = true });
 
-const provinciaSchema = mongoose.Schema({
-    nome:    { type: String },
-    codice:  { type: String }
-});
+    const zonaSchema = mongoose.Schema({
+        nome:    { type: String, enum: ["Nord-est", "Nord-ovest", "Centro", "Sud", "Isole"] },
+        codice:  { type: String }
+    });
 
-let comuniSchema = mongoose.Schema({
-    nome:            { type: String },
-    codice:          { type: String },
-    zona:            zonaSchema,
-    regione:         regioneSchema,
-    provincia:       provinciaSchema,
-    sigla:           { type: String },
-    codiceCatastale: { type: String },
-    cap:             { type: String },
-    created_at:      { type: Date, default: Date.now }
-});
+    const regioneSchema = mongoose.Schema({
+        nome:    { type: String },
+        codice:  { type: String }
+    });
 
-comuniSchema.methods = {
+    const provinciaSchema = mongoose.Schema({
+        nome:    { type: String },
+        codice:  { type: String }
+    });
 
-    /**
-     * Filter Keys
-     * @return {Object} Custom Keys
-     */
-    filterKeys: function() {
+    let comuniSchema = mongoose.Schema({
+        nome:            { type: String },
+        codice:          { type: String },
+        zona:            zonaSchema,
+        regione:         regioneSchema,
+        provincia:       provinciaSchema,
+        sigla:           { type: String },
+        codiceCatastale: { type: String },
+        cap:             { type: String },
+        created_at:      { type: Date, default: Date.now }
+    });
 
-        const obj = this.toObject();
-        const filtered = pick(obj, 'nome', 'codice', 'regione', 'provincia', 'sigla', 'cap');
+    comuniSchema.methods = {
 
-        return filtered;
-    }
+        /**
+         * Filter Keys
+         * @return {Object} Custom Keys
+         */
+        filterKeys: function() {
+
+            const obj = this.toObject();
+            const filtered = pick(obj, 'nome', 'codice', 'regione', 'provincia', 'sigla', 'cap');
+
+            return filtered;
+        }
+    };
+
+    return mongoose.model('comuni', comuniSchema);
 };
-
-module.exports = mongoose.model('comuni', comuniSchema);
-
-// https://github.com/matteocontrini/comuni-json

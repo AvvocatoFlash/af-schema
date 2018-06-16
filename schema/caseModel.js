@@ -1,126 +1,118 @@
-var adminModel = require('./adminModel');
-var userModel = require('./userModel');
-var lawyerModel = require('./lawyerModel');
-var specialisationsModel = require('./specialisationsModel');
+require('./adminModel');
+require('./userModel');
+require('./lawyerModel');
+require('./specialisationsModel');
 
-var mongoose  = require('mongoose');
-mongoose.plugin(schema => { schema.options.usePushEach = true });
 const pick = require('lodash.pick');
 
-var buySchema = mongoose.Schema({
-    lawyer:        { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' },
-    created_at:    { type: Date, default: Date.now }
-});
+module.exports = (mongoose) => {
 
-var caseSchema = mongoose.Schema({
-    read:          { type: Boolean, default: false },
-    user:          { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'user' },
-    time:          { type: String, enum: [1, 2, 3, 4] },
-    type:          { type: String, enum: [1, 2, 3, 4] },
-    view:          { type: String, enum: [1, 2] },
-    step:          { type: String, enum: [1, 2, 3] },
-    description:   { type: String },
-    specialisations:  [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'spiecializzazione' }],
-    province:      { type: Array },
-    comune:        { type: Array },
-    mobile:        { type: String },
-    title:         { type: String },
-    status:        { type: Boolean, default: false },
-    patrocinio:    { type: Boolean, default: false },
-    partnerStatus: { type: Boolean, default: false },
-    sold:          { type: Boolean },
-    partners:      [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' }],
-    content:       { type: String },
-    credit:        { type: String },
-    selected:      { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' },
-    buy:           [buySchema],
-    note:          { type: String },
-    urgent:        { type: Boolean, default: false },
-    approved:      { type: Boolean, default: false },
-    declined:      { type: Boolean, default: false },
-    reminder:      { type: Boolean, default: false },
-    reminderData:  { type: Date },
-    archived:      { type: Boolean },
-    removed:        [{
-        lawyer_id:   { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' },
-        date:      { type: Date }
-    }],
-    author_id:     { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'admin' },
-    posted_at:     { type: Date },
-    expired_at:    { type: Date },
-    updated_at:    { type: Date, default: Date.now },
-    created_at:    { type: Date, default: Date.now }
-});
+    mongoose.plugin(schema => { schema.options.usePushEach = true });
 
-// view
-// 1 request user case
-// 2 lawyer cases app
+    const buySchema = mongoose.Schema({
+        lawyer:        { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' },
+        created_at:    { type: Date, default: Date.now }
+    });
 
-//step
-// 1 not do legal action
-// 2 other lawyer
-// 3 user did not choosed yet
+    let caseSchema = mongoose.Schema({
+        read:          { type: Boolean, default: false },
+        user:          { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'user' },
+        time:          { type: String, enum: [1, 2, 3, 4] },
+        type:          { type: String, enum: [1, 2, 3, 4] },
+        view:          { type: String, enum: [1, 2] },
+        step:          { type: String, enum: [1, 2, 3] },
+        description:   { type: String },
+        specialisations:  [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'spiecializzazione' }],
+        province:      { type: Array },
+        comune:        { type: Array },
+        mobile:        { type: String },
+        title:         { type: String },
+        status:        { type: Boolean, default: false },
+        patrocinio:    { type: Boolean, default: false },
+        partnerStatus: { type: Boolean, default: false },
+        sold:          { type: Boolean },
+        partners:      [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' }],
+        content:       { type: String },
+        credit:        { type: String },
+        selected:      { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' },
+        buy:           [buySchema],
+        note:          { type: String },
+        urgent:        { type: Boolean, default: false },
+        approved:      { type: Boolean, default: false },
+        declined:      { type: Boolean, default: false },
+        reminder:      { type: Boolean, default: false },
+        reminderData:  { type: Date },
+        archived:      { type: Boolean },
+        removed:        [{
+            lawyer_id:   { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' },
+            date:      { type: Date }
+        }],
+        author_id:     { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'admin' },
+        posted_at:     { type: Date },
+        expired_at:    { type: Date },
+        updated_at:    { type: Date, default: Date.now },
+        created_at:    { type: Date, default: Date.now }
+    });
 
-caseSchema.pre('save', function(next) {
-    if (!this.isNew) return next();
-    if(!this.created_at) this.created_at = Date.now();
-    if(!this.updated_at) this.updated_at = Date.now();
-    next();
-});
+    // view
+    // 1 request user case
+    // 2 lawyer cases app
 
-caseSchema.pre('update', function(next) {
-    if(!this.updated_at) this.updated_at = Date.now();
-    next();
-});
+    //step
+    // 1 not do legal action
+    // 2 other lawyer
+    // 3 user did not choosed yet
 
-caseSchema.methods = {
+    caseSchema.pre('save', function(next) {
+        if (!this.isNew) return next();
+        if(!this.created_at) this.created_at = Date.now();
+        if(!this.updated_at) this.updated_at = Date.now();
+        next();
+    });
 
-    /**
-     * Filter Keys
-     * @return {Object} Custom Keys
-     */
-    minFilterKeys: function() {
+    caseSchema.pre('update', function(next) {
+        if(!this.updated_at) this.updated_at = Date.now();
+        next();
+    });
 
-        const obj = this.toObject();
-        const filtered = pick(obj, '_id', 'comune', 'description', 'time', 'mobile', 'view', 'created_at');
+    caseSchema.methods = {
 
-        return filtered;
-    },
+        /**
+         * Filter Keys
+         * @return {Object} Custom Keys
+         */
+        minFilterKeys: function() {
 
-    customerFilterKeys: function() {
+            const obj = this.toObject();
+            const filtered = pick(obj, '_id', 'comune', 'description', 'time', 'mobile', 'view', 'created_at');
 
-        const obj = this.toObject();
-        const filtered = pick(obj, '_id', 'declined', 'description', 'comune', 'created_at', 'buy', 'selected', 'title', 'specialisations', 'user', 'mobile', 'time', 'status');
+            return filtered;
+        },
 
-        return filtered;
-    },
+        customerFilterKeys: function() {
 
-    purchasedFilterKeys: function() {
+            const obj = this.toObject();
+            const filtered = pick(obj, '_id', 'declined', 'description', 'comune', 'created_at', 'buy', 'selected', 'title', 'specialisations', 'user', 'mobile', 'time', 'status');
 
-        const obj = this.toObject();
-        const filtered = pick(obj, '_id', 'declined', 'selected', 'posted_at', 'patrocinio', 'urgent', 'buy', 'selected', 'title', 'content', 'comune', 'specialisations', 'user', 'mobile', 'time', 'status');
+            return filtered;
+        },
 
-        return filtered;
-    },
+        purchasedFilterKeys: function() {
 
-    searchFilterKeys: function() {
+            const obj = this.toObject();
+            const filtered = pick(obj, '_id', 'declined', 'selected', 'posted_at', 'patrocinio', 'urgent', 'buy', 'selected', 'title', 'content', 'comune', 'specialisations', 'user', 'mobile', 'time', 'status');
 
-        const obj = this.toObject();
-        const filtered = pick(obj, '_id', 'declined', 'sold', 'posted_at', 'patrocinio', 'urgent', 'title', 'content', 'comune', 'specialisations', 'credit');
+            return filtered;
+        },
 
-        return filtered;
-    }
+        searchFilterKeys: function() {
+
+            const obj = this.toObject();
+            const filtered = pick(obj, '_id', 'declined', 'sold', 'posted_at', 'patrocinio', 'urgent', 'title', 'content', 'comune', 'specialisations', 'credit');
+
+            return filtered;
+        }
+    };
+
+    return mongoose.model('case', caseSchema);
 };
-
-// caseSchema.methods = {
-//
-//     filterKeys: function () {
-//
-//         const obj = this.toObject();
-//         const filtered = pick(obj, 'urgent', 'content', 'credit', 'selected', 'buy','urgent', 'approved', 'declined', 'removed', 'posted_at', 'expired_at', 'updated_at', 'created_at');
-//
-//         return filtered;
-//     }
-// };
-
-module.exports = mongoose.model('case', caseSchema);

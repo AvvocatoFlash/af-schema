@@ -45,7 +45,7 @@ module.exports = (mongoose) => {
         partner:       { type: Boolean, default: false },
         notifications: { type: Object },
         credits:       { type: String, default: 0 },
-        points:        { type: String }, // refund available credits
+        points:        { type: String, default: 0 }, // refund available credits
         onboarding:    { type: Boolean, default: false },
         specialisations:[{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'spiecializzazione' }],
         // license_num:   { type: String },

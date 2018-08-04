@@ -14,6 +14,7 @@ module.exports = (mongoose) => {
         permalink: { type: String, require: true, unique: true },
         position: {type: Number},
         content: {type: String},
+        isProvince: {type: Boolean}, // new landing by province
         label: {type: String},//to remove
         seo: {type: String}, //to remove
         footerLabel: {type: String},

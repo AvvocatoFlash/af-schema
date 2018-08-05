@@ -15,6 +15,7 @@ module.exports = (mongoose) => {
     });
 
     let caseSchema = mongoose.Schema({
+        fullname:      { type: String },
         read:          { type: Boolean, default: false },
         user:          { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'user' },
         time:          { type: String, enum: [1, 2, 3, 4] },

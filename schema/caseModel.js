@@ -93,7 +93,7 @@ module.exports = (mongoose) => {
         customerFilterKeys: function() {
 
             const obj = this.toObject();
-            const filtered = pick(obj, '_id', 'declined', 'description', 'comune', 'created_at', 'buy', 'selected', 'title', 'specialisations', 'user', 'mobile', 'time', 'status');
+            const filtered = pick(obj, '_id', 'fullname', 'declined', 'description', 'comune', 'created_at', 'buy', 'selected', 'title', 'specialisations', 'user', 'mobile', 'time', 'status');
 
             return filtered;
         },
@@ -101,7 +101,7 @@ module.exports = (mongoose) => {
         purchasedFilterKeys: function() {
 
             const obj = this.toObject();
-            const filtered = pick(obj, '_id', 'declined', 'selected', 'posted_at', 'patrocinio', 'urgent', 'buy', 'selected', 'title', 'content', 'comune', 'specialisations', 'user', 'mobile', 'time', 'status');
+            const filtered = pick(obj, '_id', 'fullname', 'declined', 'selected', 'posted_at', 'patrocinio', 'urgent', 'buy', 'selected', 'title', 'content', 'comune', 'specialisations', 'user', 'mobile', 'time', 'status');
 
             return filtered;
         },

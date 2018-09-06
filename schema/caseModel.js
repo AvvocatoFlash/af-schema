@@ -27,6 +27,7 @@ module.exports = (mongoose) => {
         province:      { type: Array },
         comune:        { type: Array },
         mobile:        { type: String },
+        email:         { type: String },
         title:         { type: String },
         status:        { type: Boolean, default: false },
         patrocinio:    { type: Boolean, default: false },
@@ -85,7 +86,7 @@ module.exports = (mongoose) => {
         minFilterKeys: function() {
 
             const obj = this.toObject();
-            const filtered = pick(obj, '_id', 'comune', 'description', 'time', 'mobile', 'view', 'created_at');
+            const filtered = pick(obj, '_id', 'comune', 'description', 'time', 'mobile', 'email', 'view', 'created_at');
 
             return filtered;
         },
@@ -93,7 +94,7 @@ module.exports = (mongoose) => {
         customerFilterKeys: function() {
 
             const obj = this.toObject();
-            const filtered = pick(obj, '_id', 'fullname', 'declined', 'description', 'comune', 'created_at', 'buy', 'selected', 'title', 'specialisations', 'user', 'mobile', 'time', 'status');
+            const filtered = pick(obj, '_id', 'fullname', 'declined', 'description', 'comune', 'created_at', 'buy', 'selected', 'title', 'specialisations', 'user', 'mobile', 'email', 'time', 'status');
 
             return filtered;
         },
@@ -101,7 +102,7 @@ module.exports = (mongoose) => {
         purchasedFilterKeys: function() {
 
             const obj = this.toObject();
-            const filtered = pick(obj, '_id', 'fullname', 'declined', 'selected', 'posted_at', 'patrocinio', 'urgent', 'buy', 'selected', 'title', 'content', 'comune', 'specialisations', 'user', 'mobile', 'time', 'status');
+            const filtered = pick(obj, '_id', 'fullname', 'declined', 'selected', 'posted_at', 'patrocinio', 'urgent', 'buy', 'selected', 'title', 'content', 'comune', 'specialisations', 'user', 'mobile', 'email', 'time', 'status');
 
             return filtered;
         },

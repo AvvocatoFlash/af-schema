@@ -102,7 +102,7 @@ module.exports = (mongoose) => {
         purchasedFilterKeys: function() {
 
             const obj = this.toObject();
-            const filtered = pick(obj, '_id', 'fullname', 'declined', 'selected', 'posted_at', 'patrocinio', 'urgent', 'buy', 'selected', 'title', 'content', 'comune', 'specialisations', 'user', 'mobile', 'email', 'time', 'status');
+            const filtered = pick(obj, '_id', 'fullname', 'declined', 'selected', 'posted_at', 'patrocinio', 'urgent', 'buy', 'selected', 'title', 'content', 'comune', 'specialisations', 'user', 'mobile', 'email', 'time', 'status', 'credit');
 
             return filtered;
         },

@@ -2,6 +2,7 @@ require('./specialisationsModel');
 
 const bcrypt    = require('bcrypt-nodejs');
 const pick = require('lodash.pick');
+const Decimal = require('decimal.js');
 
 module.exports = (mongoose) => {
 
@@ -120,6 +121,29 @@ module.exports = (mongoose) => {
          */
         validPassword: function(password) {
             return bcrypt.compareSync(password, this.password);
+        },
+
+        /**
+         * Add TopUp Credits/Points
+         * @param {String} credits
+         * @param {String} percentuge
+         * @return {Boolean} Valid Password
+         */
+        topup: async function(credits, percentuge) {
+
+            const lawyer = this;
+            const topupCreditsDc = new Decimal(credits);
+            const lawyerCreditsDc = new Decimal(lawyer.credits);
+
+            lawyer.credits = lawyerCreditsDc.plus(topupCreditsDc).toNumber();
+
+            const PointsDc = topupCreditsDc.div(new Decimal(100)).mul(new Decimal(percentuge));
+
+            lawyer.points = PointsDc.plus(new Decimal(lawyer.points || 0)).toString();
+
+            await lawyer.save();
+
+            return lawyer;
         },
 
         /**

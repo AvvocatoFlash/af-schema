@@ -23,6 +23,6 @@
     "lodash.pick": "^4.4.0",
     "mongoose": "^5.3.0",
     "mongoose-double": "0.0.1",
-    "shortid": "^2.2.8"
+    "shortid": "^2.2.13"
   }
 }

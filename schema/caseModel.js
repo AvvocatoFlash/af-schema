@@ -35,7 +35,7 @@ module.exports = (mongoose) => {
         sold:          { type: Boolean },
         partners:      [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' }],
         content:       { type: String },
-        credit:        { type: String },
+        credit:        { type: Number },
         selected:      { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' },
         buy:           [buySchema],
         note:          { type: String },

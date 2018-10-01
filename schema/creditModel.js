@@ -11,7 +11,7 @@ module.exports = (mongoose) => {
     let creditSchema = mongoose.Schema({
         lawyer:        { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' },
         case:          { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'case' },
-        credit:        { type: String, default: 0 },
+        credit:        { type: Number, default: 0 },
         type:          { type: String },
         admin_id:      { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'admin' },
         refund:        {

@@ -12,7 +12,7 @@ module.exports = (mongoose) => {
         name: {type: String, require: true},
         description: {type: String, require: true},
         price: { type: String },
-        credits: { type: String },
+        credits: { type: Number },
         expired_at: {type: Date},
         updated_at: {type: Date, default: Date.now},
         created_at: {type: Date, default: Date.now}

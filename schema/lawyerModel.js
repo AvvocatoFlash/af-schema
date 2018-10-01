@@ -45,8 +45,8 @@ module.exports = (mongoose) => {
         indexing:      { type: Boolean, default: false },
         partner:       { type: Boolean, default: false },
         notifications: { type: Object },
-        credits:       { type: String, default: 0 },
-        points:        { type: String, default: 0 }, // refund available credits
+        credits:       { type: Number, default: 0 },
+        points:        { type: Number, default: 0 }, // refund available credits
         onboarding:    { type: Boolean, default: false },
         specialisations:[{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'spiecializzazione' }],
         // license_num:   { type: String },
@@ -139,7 +139,7 @@ module.exports = (mongoose) => {
 
             const PointsDc = topupCreditsDc.div(new Decimal(100)).mul(new Decimal(percentuge));
 
-            lawyer.points = PointsDc.plus(new Decimal(lawyer.points || 0)).toString();
+            lawyer.points = PointsDc.plus(new Decimal(lawyer.points || 0)).toNumber();
 
             await lawyer.save();
 

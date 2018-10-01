@@ -13,7 +13,7 @@ module.exports = (mongoose) => {
         shortId:     {type: String, unique: true},
         ref_lawyer:  { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' },
         billing:     { type: Object },
-        credits:     { type: String, default: 0 },
+        credits:     { type: Number, default: 0 },
         total:       { type: String },
         stripe:      { type: Object },
         log:         { type: Object },

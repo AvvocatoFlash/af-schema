@@ -110,7 +110,7 @@ module.exports = (mongoose) => {
         searchFilterKeys: function() {
 
             const obj = this.toObject();
-            const filtered = pick(obj, '_id', 'declined', 'sold', 'posted_at', 'patrocinio', 'urgent', 'title', 'content', 'comune', 'specialisations', 'credit');
+            const filtered = pick(obj, '_id', 'declined', 'sold', 'alert', 'posted_at', 'patrocinio', 'urgent', 'title', 'content', 'comune', 'specialisations', 'credit');
 
             return filtered;
         }

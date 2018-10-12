@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt-nodejs');
 const pick = require('lodash.pick');
+require('./comuniModel');
 
 module.exports = (mongoose) => {
 
@@ -31,6 +32,8 @@ module.exports = (mongoose) => {
         clone: {type:Boolean},
         related: [{ type: mongoose.Schema.Types.ObjectId, field: "_id" }],
         getContent: [{ type: mongoose.Schema.Types.ObjectId, field: "_id" }],
+        comune: { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'comuni' },
+        specialisations: [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'spiecializzazione' }],
         updated_at: {type: Date, default: Date.now},
         created_at: {type: Date, default: Date.now}
     });

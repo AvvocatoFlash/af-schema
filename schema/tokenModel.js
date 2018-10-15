@@ -31,13 +31,13 @@ module.exports = (mongoose) => {
 
             const secretKey = speakeasy.generateSecret({length: 20});
 
-            const token = await token.find({
+            const tokenModel = await new token({
                 value: secretKey.base32,
                 type: 'auth',
                 lawyer: UserId,
             }).exec();
 
-            return token;
+            return tokenModel;
         }
     };
 

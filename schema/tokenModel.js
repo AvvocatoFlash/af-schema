@@ -29,10 +29,9 @@ module.exports = (mongoose) => {
 
         generateLogin: async (UserId) => {
 
-            // const Models = this.model('token');
             const secretKey = speakeasy.generateSecret({length: 20});
 
-            const token = await this.find({
+            const token = await token.find({
                 value: secretKey.base32,
                 type: 'auth',
                 lawyer: UserId,

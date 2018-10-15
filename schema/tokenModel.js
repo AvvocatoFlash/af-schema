@@ -24,17 +24,6 @@ module.exports = (mongoose) => {
         next();
     });
 
-    tokenSchema.methods = {
-
-        searchFilterKeys: () => {
-
-            const obj = this.toObject();
-            const filtered = pick(obj, '_id', 'declined', 'sold', 'alert', 'posted_at', 'patrocinio', 'urgent', 'title', 'content', 'comune', 'specialisations', 'credit');
-
-            return filtered;
-        }
-    };
-
     return mongoose.model('token', tokenSchema);
 
 };

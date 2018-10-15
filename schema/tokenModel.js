@@ -1,4 +1,5 @@
 const speakeasy = require('speakeasy');
+require('mongoose');
 require('./lawyerModel');
 
 module.exports = (mongoose) => {
@@ -28,10 +29,10 @@ module.exports = (mongoose) => {
 
         generateLogin: async (UserId) => {
 
-            const Models = this.model('token');
+            // const Models = this.model('token');
             const secretKey = speakeasy.generateSecret({length: 20});
 
-            const token = await new Models({
+            const token = await this.find({
                 value: secretKey.base32,
                 type: 'auth',
                 lawyer: UserId,

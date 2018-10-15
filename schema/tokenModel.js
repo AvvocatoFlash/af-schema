@@ -25,7 +25,7 @@ module.exports = (mongoose) => {
         next();
     });
 
-    tokenSchema.methods = {
+    tokenSchema.statics = {
 
         generateLogin: async (UserId) => {
 

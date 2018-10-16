@@ -1,4 +1,3 @@
-const speakeasy = require('speakeasy');
 require('mongoose');
 require('./lawyerModel');
 
@@ -24,22 +23,6 @@ module.exports = (mongoose) => {
 
         next();
     });
-
-    tokenSchema.statics = {
-
-        generateLogin: async (UserId) => {
-
-            const secretKey = speakeasy.generateSecret({length: 20});
-
-            const tokenModel = this.model('token').create({
-                value: secretKey.base32,
-                type: 'auth',
-                lawyer: UserId,
-            });
-
-            return tokenModel;
-        }
-    };
 
     return mongoose.model('token', tokenSchema);
 

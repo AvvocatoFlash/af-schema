@@ -1,4 +1,3 @@
-require('mongoose');
 require('./lawyerModel');
 
 module.exports = (mongoose) => {

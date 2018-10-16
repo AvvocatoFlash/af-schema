@@ -31,11 +31,11 @@ module.exports = (mongoose) => {
 
             const secretKey = speakeasy.generateSecret({length: 20});
 
-            const tokenModel = await new token({
+            const tokenModel = this.model('token').create({
                 value: secretKey.base32,
                 type: 'auth',
                 lawyer: UserId,
-            }).exec();
+            });
 
             return tokenModel;
         }

@@ -6,8 +6,8 @@ module.exports = (mongoose) => {
 
     let tokenSchema = mongoose.Schema({
         value:   { type: String, require: true },
-        lawyer:  { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer', require: true },
-        type:    { type: String, require: true },
+        lawyer:  { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' },
+        type:    { type: String },
         updated_at: { type: Date, default: Date.now },
         created_at: { type: Date, default: Date.now }
     });

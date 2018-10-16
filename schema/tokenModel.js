@@ -6,9 +6,9 @@ module.exports = (mongoose) => {
     mongoose.plugin(schema => { schema.options.usePushEach = true });
 
     let tokenSchema = mongoose.Schema({
-        value:   { type: Number, default: 0 },
-        lawyer:  { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' },
-        type:    { type: String },
+        value:   { type: String, require: true },
+        lawyer:  { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer', require: true },
+        type:    { type: String, require: true },
         updated_at: { type: Date, default: Date.now },
         created_at: { type: Date, default: Date.now }
     });

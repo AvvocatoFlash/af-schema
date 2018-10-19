@@ -7,7 +7,6 @@ module.exports = (mongoose) => {
     mongoose.plugin(schema => { schema.options.usePushEach = true });
 
     let landingSchema = mongoose.Schema({
-        type: { type: String, enum: ['PPC', 'Organic'] },
         metaTitle: {type: String},
         metaDescription: {type: String},
         title: {type: String},
@@ -15,23 +14,15 @@ module.exports = (mongoose) => {
         permalink: { type: String, require: true, unique: true },
         position: {type: Number},
         content: {type: String},
-        isProvince: {type: Boolean}, // new landing by province
-        label: {type: String},//to remove
-        seo: {type: String}, //to remove
+        isCategory: {type: Boolean, default: false},
+        label: {type: String},
+        seo: {type: String},
         footerLabel: {type: String},
         iconLabel: {type: String},
         isSEO: {type: Boolean, default: false},
         isHome: {type: Boolean, default: false},
-        // ppc_category: { type: String, enum: ['Milano', 'Roma'] },
-        isCategory: {type: Boolean, default: false},
-        isSAM: {type: Boolean, default: false}, //to remove
-        isSpecial: {type: Boolean, default: false},//to remove
         isActive: {type: Boolean, default: true},
-        isVerify: {type: Boolean, default: false},
         testimonials: {type: Array, default: [] },
-        clone: {type:Boolean},
-        related: [{ type: mongoose.Schema.Types.ObjectId, field: "_id" }],
-        getContent: [{ type: mongoose.Schema.Types.ObjectId, field: "_id" }],
         comune: { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'comuni' },
         specialisations: [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'spiecializzazione' }],
         updated_at: {type: Date, default: Date.now},

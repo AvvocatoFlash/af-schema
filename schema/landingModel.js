@@ -23,7 +23,7 @@ module.exports = (mongoose) => {
         isHome: {type: Boolean, default: false},
         isActive: {type: Boolean, default: true},
         testimonials: {type: Array, default: [] },
-        comune: { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'comuni' },
+        comuni: { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'comuni' },
         specialisations: [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'spiecializzazione' }],
         updated_at: {type: Date, default: Date.now},
         created_at: {type: Date, default: Date.now}

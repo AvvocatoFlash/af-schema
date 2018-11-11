@@ -14,7 +14,7 @@ module.exports = (mongoose) => {
         always:        { type: Boolean, default: false },
         sessions:      { type: Number, default: 0 },
         count:         { type: Number, default: 0 },
-        lawyers:   [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' }]
+        lawyers:   [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' }],
         type:          { type: String, enum: ['percentage', 'sum', 'credits'], default: 'sum'},
         amount:        { type: String },
         updated_at:    { type: Date, default: Date.now },

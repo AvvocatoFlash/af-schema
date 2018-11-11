@@ -1,3 +1,5 @@
+require('./lawyerModel');
+
 const pick = require('lodash.pick');
 
 module.exports = (mongoose) => {
@@ -11,6 +13,7 @@ module.exports = (mongoose) => {
         status:  { type: Boolean, default: false },
         name: {type: String, require: true},
         description: {type: String, require: true},
+        only:          [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' }],
         price: { type: String },
         credits: { type: Number },
         expired_at: {type: Date},
@@ -19,7 +22,7 @@ module.exports = (mongoose) => {
     });
 
     bundleSchema.pre('save', function (next) {
-        if (!this.isNew) return next()
+        if (!this.isNew) return next();
         if (!this.created_at) {
             this.created_at = Date.now();
         }

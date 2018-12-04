@@ -1,6 +1,7 @@
 require('./adminModel');
 require('./userModel');
 require('./lawyerModel');
+require('./comuniModel');
 require('./specialisationsModel');
 
 const pick = require('lodash.pick');
@@ -25,7 +26,7 @@ module.exports = (mongoose) => {
         description:   { type: String },
         specialisations:  [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'spiecializzazione' }],
         province:      { type: Array },
-        comune:        { type: Array },
+        comune:        { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'comuni' },
         mobile:        { type: String },
         email:         { type: String },
         title:         { type: String },

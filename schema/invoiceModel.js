@@ -14,6 +14,7 @@ module.exports = (mongoose) => {
         ref_lawyer:  { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' },
         billing:     { type: Object },
         credits:     { type: Number, default: 0 },
+        cancel:      { type: Boolean },
         total:       { type: String },
         stripe:      { type: Object },
         log:         { type: Object },

@@ -27,7 +27,6 @@ module.exports = (mongoose) => {
         specialisations:  [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'spiecializzazione' }],
         province:      { type: Array },
         comune:        { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'comuni' },
-        location:      { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'comuni' },
         mobile:        { type: String },
         email:         { type: String },
         title:         { type: String },

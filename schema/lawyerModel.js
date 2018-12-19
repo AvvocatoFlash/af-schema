@@ -153,7 +153,7 @@ module.exports = (mongoose) => {
         filterKeys: function() {
 
             const obj = this.toObject();
-            const filtered = pick(obj, '_id', 'email', 'name', 'surname', 'permalink', 'credits', 'image', 'isVerify', 'isActive', 'mobile', 'filters', 'specialisations', 'token', 'type', 'onboarding', 'notifications', 'partner', 'created_at');
+            const filtered = pick(obj, '_id', 'email', 'name', 'surname', 'permalink', 'indexing', 'credits', 'image', 'isVerify', 'isActive', 'mobile', 'filters', 'specialisations', 'token', 'type', 'onboarding', 'notifications', 'partner', 'created_at');
 
             return filtered;
         },
@@ -169,7 +169,7 @@ module.exports = (mongoose) => {
         publicFilterKeys: function() {
 
             const obj = this.toObject();
-            const filtered = pick(obj, '_id', 'email', 'name', 'surname', 'permalink', 'image', 'filters', 'isVerify', 'specialisations', 'officeName', 'offices', 'officeNumber', 'website', 'ordine', 'ordine_anno', 'public', 'created_at');
+            const filtered = pick(obj, '_id', 'email', 'name', 'surname', 'permalink', 'indexing', 'image', 'filters', 'isVerify', 'specialisations', 'officeName', 'offices', 'officeNumber', 'website', 'ordine', 'ordine_anno', 'public', 'created_at');
 
             return filtered;
         }

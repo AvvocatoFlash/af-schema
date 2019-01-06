@@ -1,4 +1,6 @@
 require('./specialisationsModel');
+require('./comuniModel');
+require('./tokenModel');
 
 const bcrypt    = require('bcrypt-nodejs');
 const pick = require('lodash.pick');
@@ -49,8 +51,12 @@ module.exports = (mongoose) => {
         points:        { type: Number, default: 0 }, // refund available credits
         onboarding:    { type: Boolean, default: false },
         specialisations:[{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'spiecializzazione' }],
-        // license_num:   { type: String },
-        // license_date:  { type: Date },
+        partner_details: {
+            case_price: { type: String },
+            comuni: [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'comuni' }],
+            token: { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'token' },
+            expire: { type: Date }
+        },
         cf:            { type: String },
         password:      { type: String, require: true },
         type:          { type: String, default: 'lawyer' },

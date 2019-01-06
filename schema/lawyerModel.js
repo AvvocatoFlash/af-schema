@@ -1,5 +1,6 @@
 require('./specialisationsModel');
 require('./comuniModel');
+require('./subscriptionModel');
 require('./tokenModel');
 
 const bcrypt    = require('bcrypt-nodejs');
@@ -40,8 +41,6 @@ module.exports = (mongoose) => {
         mobile:        { type: String },
         permalink:     { type: String, sparse: true, unique: true, trim: true },
         ordine_anno:   { type: Number },
-        // comune: {type: Array}, //save in filters
-        // province:      { type: Array }, //save in filters
         ordine:        { type: Array },
         filters:       { type: Object },
         indexing:      { type: Boolean, default: false },
@@ -51,11 +50,10 @@ module.exports = (mongoose) => {
         points:        { type: Number, default: 0 }, // refund available credits
         onboarding:    { type: Boolean, default: false },
         specialisations:[{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'spiecializzazione' }],
+        subscription: { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'subscription' },
         partner_details: {
             case_price: { type: String },
             comuni: [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'comuni' }],
-            token: { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'token' },
-            expire: { type: Date },
             qty: { type: String }
         },
         cf:            { type: String },

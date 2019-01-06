@@ -1,20 +1,25 @@
 require('./lawyerModel');
+require('./comuniModel');
 
 module.exports = (mongoose) => {
 
     mongoose.plugin(schema => { schema.options.usePushEach = true });
 
-    let tokenSchema = mongoose.Schema({
-        value:   { type: String, require: true },
+    let subscriptionSchema = mongoose.Schema({
         lawyer:  { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' },
+        amount:  { type: String },
+        comuni: [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'comuni' }],
+        case_qty:  { type: String },
         type:    { type: String },
         start:   { type: Date },
         expire:  { type: Date },
+        stripe:  { type: Object },
+        source:  { type: Object },
         updated_at: { type: Date, default: Date.now },
         created_at: { type: Date, default: Date.now }
     });
 
-    tokenSchema.pre('save', (next) => {
+    subscriptionSchema.pre('save', (next) => {
 
         if (!this.isNew) return next();
 
@@ -25,7 +30,7 @@ module.exports = (mongoose) => {
         next();
     });
 
-    return mongoose.model('token', tokenSchema);
+    return mongoose.model('subscription', subscriptionSchema);
 
 };
 

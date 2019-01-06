@@ -6,7 +6,7 @@ module.exports = (mongoose) => {
     mongoose.plugin(schema => { schema.options.usePushEach = true });
 
     let subscriptionSchema = mongoose.Schema({
-        lawyer:  { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' },
+        status: { type Boolean },
         amount:  { type: String },
         comuni: [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'comuni' }],
         case_qty:  { type: String },

@@ -56,7 +56,7 @@ module.exports = (mongoose) => {
             comuni: [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'comuni' }],
             token: { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'token' },
             expire: { type: Date },
-            qty: { type: string }
+            qty: { type: String }
         },
         cf:            { type: String },
         password:      { type: String, require: true },

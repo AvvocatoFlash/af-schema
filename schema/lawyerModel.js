@@ -55,7 +55,8 @@ module.exports = (mongoose) => {
             case_price: { type: String },
             comuni: [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'comuni' }],
             token: { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'token' },
-            expire: { type: Date }
+            expire: { type: Date },
+            qty: { type: string }
         },
         cf:            { type: String },
         password:      { type: String, require: true },

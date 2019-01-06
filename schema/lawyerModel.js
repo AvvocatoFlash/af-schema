@@ -52,7 +52,7 @@ module.exports = (mongoose) => {
         specialisations:[{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'spiecializzazione' }],
         subscription: { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'subscription' },
         partner_details: {
-            case_price: { type: String },
+            amount: { type: String },
             comuni: [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'comuni' }],
             qty: { type: String }
         },

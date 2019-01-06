@@ -8,6 +8,7 @@ module.exports = (mongoose) => {
         value:   { type: String, require: true },
         lawyer:  { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' },
         type:    { type: String },
+        expire:  { type: Date },
         updated_at: { type: Date, default: Date.now },
         created_at: { type: Date, default: Date.now }
     });

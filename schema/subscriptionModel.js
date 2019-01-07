@@ -13,7 +13,7 @@ module.exports = (mongoose) => {
         type:    { type: String },
         start:   { type: Date },
         expire:  { type: Date },
-        stripe:  { type: Object },
+        customer:  { type: Object },
         source:  { type: Object },
         updated_at: { type: Date, default: Date.now },
         created_at: { type: Date, default: Date.now }

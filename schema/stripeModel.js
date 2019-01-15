@@ -9,7 +9,6 @@ module.exports = (mongoose) => {
 
     let stripeSchema = mongoose.Schema({
         status: {type: Boolean},
-        type: {type: String},
         amount: {type: String},
         comuni: [{type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'comuni'}],
         case_qty: {type: String},

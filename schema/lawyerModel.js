@@ -28,10 +28,6 @@ module.exports = (mongoose) => {
     });
 
     let lawyerSchema = mongoose.Schema({
-        stripe:        {
-            customer:       { type: String },
-            source:         { type: String }
-        },
         email:         { type: String, require: true, unique: true },
         token:         { type: String, require: true, unique: true },
         avatar:        { type: String },

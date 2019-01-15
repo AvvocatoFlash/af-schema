@@ -1,6 +1,5 @@
 require('./specialisationsModel');
 require('./comuniModel');
-require('./subscriptionModel');
 require('./tokenModel');
 
 const bcrypt    = require('bcrypt-nodejs');
@@ -46,7 +45,6 @@ module.exports = (mongoose) => {
         points:        { type: Number, default: 0 }, // refund available credits
         onboarding:    { type: Boolean, default: false },
         specialisations:[{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'spiecializzazione' }],
-        subscription: { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'subscription' },
         partner_details: {
             amount: { type: String },
             comuni: [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'comuni' }],

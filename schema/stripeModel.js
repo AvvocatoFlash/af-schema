@@ -8,6 +8,7 @@ module.exports = (mongoose) => {
     });
 
     let stripeSchema = mongoose.Schema({
+        lawyer: {type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer'},
         status: {type: Boolean},
         amount: {type: String},
         comuni: [{type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'comuni'}],

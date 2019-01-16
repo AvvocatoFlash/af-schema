@@ -6,7 +6,7 @@ module.exports = (mongoose) => {
     mongoose.plugin(schema => { schema.options.usePushEach = true });
 
     let twilioCallbackSchema = mongoose.Schema({
-        json:           { type: Object },
+        json:           { type: String },
         created_at:    { type: Date, default: Date.now }
     });
 

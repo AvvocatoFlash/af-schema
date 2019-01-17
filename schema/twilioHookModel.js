@@ -6,7 +6,8 @@ module.exports = (mongoose) => {
     mongoose.plugin(schema => { schema.options.usePushEach = true });
 
     let twilioHookSchema = mongoose.Schema({
-        json:           { type: String },
+        json:          { type: String },
+        response:      { type: Object },
         created_at:    { type: Date, default: Date.now }
     });
 

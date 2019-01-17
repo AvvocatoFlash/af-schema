@@ -7,6 +7,7 @@ module.exports = (mongoose) => {
 
     let twilioCallbackSchema = mongoose.Schema({
         json:           { type: String },
+        response:      { type: Object },
         created_at:    { type: Date, default: Date.now }
     });
 

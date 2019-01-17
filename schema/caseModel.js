@@ -88,7 +88,7 @@ module.exports = (mongoose) => {
         minFilterKeys: function() {
 
             const obj = this.toObject();
-            const filtered = pick(obj, '_id', 'comune', 'description', 'time', 'mobile', 'email', 'view', 'created_at');
+            const filtered = pick(obj, '_id', 'comune', 'description', 'time', 'mobile', 'email', 'view', 'sms_verify', 'created_at');
 
             return filtered;
         },
@@ -96,7 +96,7 @@ module.exports = (mongoose) => {
         customerFilterKeys: function() {
 
             const obj = this.toObject();
-            const filtered = pick(obj, '_id', 'fullname', 'declined', 'description', 'comune', 'created_at', 'buy', 'selected', 'title', 'specialisations', 'user', 'mobile', 'email', 'time', 'status');
+            const filtered = pick(obj, '_id', 'fullname', 'declined', 'description', 'comune', 'created_at', 'sms_verify', 'buy', 'selected', 'title', 'specialisations', 'user', 'mobile', 'email', 'time', 'status');
 
             return filtered;
         },
@@ -104,7 +104,7 @@ module.exports = (mongoose) => {
         purchasedFilterKeys: function() {
 
             const obj = this.toObject();
-            const filtered = pick(obj, '_id', 'fullname', 'declined', 'selected', 'posted_at', 'patrocinio', 'urgent', 'buy', 'selected', 'title', 'content', 'comune', 'specialisations', 'user', 'mobile', 'email', 'time', 'status', 'credit');
+            const filtered = pick(obj, '_id', 'fullname', 'declined', 'selected', 'posted_at', 'patrocinio', 'urgent', 'sms_verify', 'buy', 'selected', 'title', 'content', 'comune', 'specialisations', 'user', 'mobile', 'email', 'time', 'status', 'credit');
 
             return filtered;
         },
@@ -112,7 +112,7 @@ module.exports = (mongoose) => {
         searchFilterKeys: function() {
 
             const obj = this.toObject();
-            const filtered = pick(obj, '_id', 'declined', 'sold', 'alert', 'posted_at', 'patrocinio', 'urgent', 'title', 'content', 'comune', 'specialisations', 'credit');
+            const filtered = pick(obj, '_id', 'declined', 'sold', 'alert', 'posted_at', 'patrocinio', 'urgent', 'title', 'sms_verify', 'content', 'comune', 'specialisations', 'credit');
 
             return filtered;
         }

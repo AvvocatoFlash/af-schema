@@ -16,6 +16,7 @@ module.exports = (mongoose) => {
     });
 
     let caseSchema = mongoose.Schema({
+        sms_verify:    { type: Number, default: 0 }, //0 not verify, 1 number valid, 2 number verify
         fullname:      { type: String },
         read:          { type: Boolean, default: false },
         user:          { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'user' },

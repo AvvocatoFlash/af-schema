@@ -1,3 +1,4 @@
+require('./caseModel');
 require('./lawyerModel');
 require('./comuniModel');
 
@@ -7,22 +8,20 @@ module.exports = (mongoose) => {
         schema.options.usePushEach = true
     });
 
-    let stripeSchema = mongoose.Schema({
-        lawyer: {type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer'},
-        status: {type: Boolean},
-        amount: {type: String},
-        comuni: [{type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'comuni'}],
-        case_qty: {type: String},
-        type: {type: String},
-        start: {type: Date},
-        expire: {type: Date},
+    let subscriptionSchema = mongoose.Schema({
+        lawyer: {type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer', require: true, unique: true},
         customer: {type: Object},
         source: {type: Object},
+        amount: {type: String},
+        begin_at: {type: Date},
+        end_at: {type: Date},
+        unsubscribe_at: {type: Date},
+        decline_reason: {type: String},
         updated_at: {type: Date, default: Date.now},
         created_at: {type: Date, default: Date.now}
     });
 
-    stripeSchema.pre('save', (next) => {
+    subscriptionSchema.pre('save', (next) => {
 
         if (!this.isNew) return next();
 
@@ -33,7 +32,7 @@ module.exports = (mongoose) => {
         next();
     });
 
-    return mongoose.model('stripe', stripeSchema);
+    return mongoose.model('subscription', subscriptionSchema);
 
 };
 

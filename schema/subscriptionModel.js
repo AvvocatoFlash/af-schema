@@ -1,6 +1,7 @@
 require('./caseModel');
 require('./lawyerModel');
 require('./comuniModel');
+const pick = require('lodash.pick');
 
 module.exports = (mongoose) => {
 

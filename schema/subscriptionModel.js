@@ -32,6 +32,24 @@ module.exports = (mongoose) => {
         next();
     });
 
+    subscriptionSchema.methods = {
+
+        /**
+         * Filter Keys
+         * @return {Object} Custom Keys
+         */
+        filterKeys: function() {
+
+            const obj = this.toObject();
+            const filtered = pick(obj, '_id', 'amount', 'begin_at', 'end_at', 'unsubscribe_at', 'decline_reason');
+
+            return filtered;
+        },
+
+    };
+
+
+
     return mongoose.model('subscription', subscriptionSchema);
 
 };

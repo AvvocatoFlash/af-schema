@@ -1,6 +1,7 @@
 require('mongoose');
 require('bcrypt-nodejs');
 require('./lawyerModel');
+require('./caseModel');
 
 const shortid = require('shortid');
 const pick = require('lodash.pick');
@@ -13,6 +14,7 @@ module.exports = (mongoose) => {
         subscription: true,
         shortId:     {type: String, unique: true},
         ref_lawyer:  { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' },
+        ref_case:    [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'case' }],
         billing:     { type: Object },
         credits:     { type: Number, default: 0 },
         cancel:      { type: Boolean },

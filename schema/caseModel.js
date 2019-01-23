@@ -96,7 +96,7 @@ module.exports = (mongoose) => {
                 },
                 posted_at: {
                     "$gte": moment.parseZone(from).hours(0).minutes(0).seconds(0).format(),
-                    "$lt": moment.parseZone(to).hours(23).minutes(59).seconds(59).format(),
+                    "$lt": moment.parseZone(to).hours(0).minutes(0).seconds(0).format(),
                 }}).exec();
         }
 

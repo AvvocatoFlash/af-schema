@@ -10,6 +10,7 @@ module.exports = (mongoose) => {
     mongoose.plugin(schema => { schema.options.usePushEach = true });
 
     let invoiceSchema = mongoose.Schema({
+        subscription: true,
         shortId:     {type: String, unique: true},
         ref_lawyer:  { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' },
         billing:     { type: Object },

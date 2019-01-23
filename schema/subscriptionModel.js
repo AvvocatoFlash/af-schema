@@ -1,6 +1,4 @@
-require('./caseModel');
 require('./lawyerModel');
-require('./comuniModel');
 const pick = require('lodash.pick');
 
 module.exports = (mongoose) => {
@@ -10,6 +8,7 @@ module.exports = (mongoose) => {
     });
 
     let subscriptionSchema = mongoose.Schema({
+        status: {type: Number}, //status 0 off, 1 on, 2suspend
         lawyer: {type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer', require: true, unique: true},
         customer: {type: Object},
         source: {type: Object},

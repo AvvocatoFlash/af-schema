@@ -5,6 +5,7 @@ require('./comuniModel');
 require('./specialisationsModel');
 
 const pick = require('lodash.pick');
+const moment = require('moment');
 
 module.exports = (mongoose) => {
 
@@ -78,6 +79,24 @@ module.exports = (mongoose) => {
         if(!this.updated_at) this.updated_at = Date.now();
         next();
     });
+
+    caseSchema.statics = {
+
+        findSubscribeByRange: async function(lawyerId, from, to) {
+
+            return await this.model('case').find({
+                view: 2,
+                partnerStatus: true,
+                partners: {
+                    $in: [lawyerId]
+                },
+                posted_at: {
+                    "$gte": moment(from).setHours(0,0,0,0),
+                    "$lt": moment(to).setHours(0,0,0,0),
+                }}).exec();
+        }
+
+    };
 
     caseSchema.methods = {
 

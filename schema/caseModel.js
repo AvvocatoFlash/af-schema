@@ -84,6 +84,10 @@ module.exports = (mongoose) => {
 
         findSubscribeByRange: async function(lawyerId, from, to) {
 
+            if(lawyerId || from || to) {
+                return;
+            }
+
             return await this.model('case').find({
                 view: 2,
                 partnerStatus: true,
@@ -91,8 +95,8 @@ module.exports = (mongoose) => {
                     $in: [lawyerId]
                 },
                 posted_at: {
-                    "$gte": moment(from).setHours(0,0,0,0),
-                    "$lt": moment(to).setHours(0,0,0,0),
+                    "$gte": moment.parseZone(from).hours(0).minutes(0).seconds(0).format(),
+                    "$lt": moment.parseZone(to).hours(23).minutes(59).seconds(59).format(),
                 }}).exec();
         }
 

@@ -6,11 +6,12 @@ module.exports = function(mongoose) {
 
     fs.readdirSync(__dirname + '/schema/').forEach( (filename) => {
 
-        if(~filename.indexOf('.js')) {
+        if(filename && ~filename.indexOf('.js')) {
 
             const name = filename.split('.')[0];
+            const model = require(__dirname + '/schema/' + filename)(mongoose);
 
-            Schemas[name] = require(__dirname + '/schema/' + filename)(mongoose);
+            Schemas[name] = model;
         }
 
     });

@@ -1,5 +1,3 @@
-const pick = require('lodash.pick');
-
 module.exports = (mongoose) => {
 
     mongoose.plugin(schema => { schema.options.usePushEach = true });

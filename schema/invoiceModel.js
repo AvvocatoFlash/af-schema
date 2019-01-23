@@ -1,4 +1,3 @@
-require('mongoose');
 require('bcrypt-nodejs');
 require('./lawyerModel');
 require('./caseModel');
@@ -11,7 +10,7 @@ module.exports = (mongoose) => {
     mongoose.plugin(schema => { schema.options.usePushEach = true });
 
     let invoiceSchema = mongoose.Schema({
-        subscription: true,
+        subscription: {type: Boolean},
         shortId:     {type: String, unique: true},
         ref_lawyer:  { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' },
         ref_case:    [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'case' }],

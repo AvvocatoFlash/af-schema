@@ -84,7 +84,7 @@ module.exports = (mongoose) => {
 
         findSubscribeByRange: async function(lawyerId, from, to) {
 
-            if(lawyerId || from || to) {
+            if(!lawyerId || !from || !to) {
                 return;
             }
 

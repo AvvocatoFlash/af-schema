@@ -27,6 +27,7 @@ module.exports = (mongoose) => {
     });
 
     let lawyerSchema = mongoose.Schema({
+        followup:      { type: Boolean },
         email:         { type: String, require: true, unique: true },
         token:         { type: String, require: true, unique: true },
         avatar:        { type: String },

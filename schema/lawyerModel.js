@@ -48,6 +48,7 @@ module.exports = (mongoose) => {
         partner_details: {
             amount: { type: String },
             comuni: [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'comuni' }],
+            specialisations: [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'spiecializzazione' }],
             qty: { type: String }
         },
         cf:            { type: String },

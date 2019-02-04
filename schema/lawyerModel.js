@@ -153,7 +153,7 @@ module.exports = (mongoose) => {
         filterKeys: function() {
 
             const obj = this.toObject();
-            const filtered = pick(obj, '_id', 'email', 'name', 'surname', 'permalink', 'indexing', 'credits', 'image', 'isVerify', 'isActive', 'mobile', 'filters', 'specialisations', 'token', 'type', 'onboarding', 'notifications', 'partner', 'created_at');
+            const filtered = pick(obj, '_id', 'email', 'name', 'surname', 'permalink', 'indexing', 'credits', 'image', 'isVerify', 'isActive', 'mobile', 'filters', 'specialisations', 'token', 'type', 'onboarding', 'notifications', 'partner', 'partner_details', 'created_at');
 
             return filtered;
         },
@@ -161,7 +161,7 @@ module.exports = (mongoose) => {
         settingFilterKeys: function() {
 
             const obj = this.toObject();
-            const filtered = pick(obj, '_id', 'email', 'name', 'surname', 'permalink', 'credits', 'image', 'isVerify', 'isActive', 'mobile', 'filters', 'specialisations', 'token', 'type', 'onboarding', 'notifications', 'partner', 'officeName', 'offices', 'officeNumber', 'website', 'ordine', 'ordine_anno', 'public', 'indexing', 'session_at', 'created_at');
+            const filtered = pick(obj, '_id', 'email', 'name', 'surname', 'permalink', 'credits', 'image', 'isVerify', 'isActive', 'mobile', 'filters', 'specialisations', 'token', 'type', 'onboarding', 'notifications', 'partner', 'partner_details', 'officeName', 'offices', 'officeNumber', 'website', 'ordine', 'ordine_anno', 'public', 'indexing', 'session_at', 'created_at');
 
             return filtered;
         },

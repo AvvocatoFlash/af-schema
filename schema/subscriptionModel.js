@@ -41,7 +41,7 @@ module.exports = (mongoose) => {
         filterKeys: function() {
 
             const obj = this.toObject();
-            const filtered = pick(obj, '_id', 'lawyer', 'amount', 'begin_at', 'end_at', 'unsubscribe_at', 'decline_reason');
+            const filtered = pick(obj, '_id', 'status', 'lawyer', 'amount', 'begin_at', 'end_at', 'unsubscribe_at', 'decline_reason');
 
             return filtered;
         },

@@ -11,6 +11,8 @@ module.exports = (mongoose) => {
 
     let invoiceSchema = mongoose.Schema({
         subscription: {type: Boolean},
+        subscriptionFrom: { type: Date },
+        subscriptionTo: { type: Date },
         paid: {type: Boolean},
         chargeAttempt: {type: Number},
         shortId:     {type: String, unique: true},

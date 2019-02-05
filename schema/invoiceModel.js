@@ -15,7 +15,7 @@ module.exports = (mongoose) => {
         subscriptionTo: { type: Date },
         paid: {type: Boolean},
         chargeAttempt: {type: Number},
-        shortId:     {type: String, unique: true},
+        shortId:     {type: String, unique: true, require: true},
         ref_lawyer:  { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' },
         ref_case:    [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'case' }],
         billing:     { type: Object },

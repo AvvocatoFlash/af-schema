@@ -25,6 +25,7 @@ module.exports = (mongoose) => {
         stripe:      { type: Object },
         log:         { type: Object },
         az_old:      { type: Boolean, default: false },
+        lastCharge:  { type: Date },
         updated_at:  { type: Date, default: Date.now },
         created_at:  { type: Date, default: Date.now }
     });
@@ -50,7 +51,7 @@ module.exports = (mongoose) => {
         filterKeys: function() {
 
             const obj = this.toObject();
-            let filtered = pick(obj, '_id', 'shortId', 'ref_lawyer', 'billing', 'cancel', 'credits', 'total', 'stripe', 'log', 'az_old', 'created_at');
+            let filtered = pick(obj, '_id', 'shortId', 'ref_lawyer', 'billing', 'cancel', 'credits', 'total', 'stripe', 'log', 'az_old', 'lastCharge', 'created_at');
 
             if(filtered && filtered.stripe){
                 delete filtered.stripe.paymentObj;

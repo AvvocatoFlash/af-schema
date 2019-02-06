@@ -31,13 +31,13 @@ module.exports = (mongoose) => {
 
     invoiceSchema.pre('save', function(next) {
         if (!this.isNew) return next();
-        if(!this.created_at) this.created_at = Date.now();
-        if(!this.updated_at) this.updated_at = Date.now();
+        this.created_at = Date.now();
+        this.updated_at = Date.now();
         next();
     });
 
     invoiceSchema.pre('update', function(next) {
-        if(!this.updated_at) this.updated_at = Date.now();
+        this.updated_at = Date.now();
         next();
     });
 

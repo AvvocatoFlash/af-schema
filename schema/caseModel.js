@@ -90,6 +90,10 @@ module.exports = (mongoose) => {
                 return;
             }
 
+            const fromDate = moment.parseZone(from).hours(0).minutes(0).seconds(0).toDate();
+            const toDate = moment.parseZone(to).hours(23).minutes(59).seconds(59).toDate();
+
+
             return await this.model('case').find({
                 view: 2,
                 partnerStatus: true,
@@ -97,8 +101,8 @@ module.exports = (mongoose) => {
                     $in: [lawyerId]
                 },
                 posted_at: {
-                    "$gte": moment.parseZone(from).hours(0).minutes(0).seconds(0).format(),
-                    "$lte": moment.parseZone(to).hours(23).minutes(59).seconds(59).format(),
+                    "$gte": fromDate,
+                    "$lte": toDate,
                 }}).exec();
         }
 

@@ -37,6 +37,7 @@ module.exports = (mongoose) => {
         status:        { type: Boolean, default: false },
         patrocinio:    { type: Boolean, default: false },
         partnerStatus: { type: Boolean, default: false },
+        partnerBonus: { type: Boolean, default: false },
         sold:          { type: Boolean },
         partners:      [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' }],
         content:       { type: String },
@@ -93,6 +94,7 @@ module.exports = (mongoose) => {
             return await this.model('case').find({
                 view: 2,
                 partnerStatus: true,
+                partnerBonus: {$ne: true},
                 partners: {
                     $in: [lawyerId]
                 },

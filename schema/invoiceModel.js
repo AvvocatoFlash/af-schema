@@ -42,6 +42,22 @@ module.exports = (mongoose) => {
         next();
     });
 
+    invoiceSchema.statics = {
+
+        subscriptionHistory: async function(lawyerId) {
+
+            if(!lawyerId) {
+                return;
+            }
+
+            return await this.model('invoice').find({
+                    subscription: true,
+                    ref_lawyer: lawyerId,
+                }).sort('-subscriptionFrom').exec();
+        }
+
+    };
+
     invoiceSchema.methods = {
 
         /**
@@ -61,6 +77,14 @@ module.exports = (mongoose) => {
                 delete filtered.stripe.client_ip;
                 delete filtered.log;
             }
+
+            return filtered;
+        },
+
+        filterSubscriptionKeys: function() {
+
+            const obj = this.toObject();
+            let filtered = pick(obj, '_id', 'shortId', 'subscriptionFrom', 'subscriptionTo', 'paid', 'chargeAttempt', 'ref_case', 'total', 'lastCharge');
 
             return filtered;
         }

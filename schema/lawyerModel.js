@@ -104,6 +104,19 @@ module.exports = (mongoose) => {
         next();
     });
 
+    lawyerSchema.statics = {
+
+        findSubscribers: async function() {
+
+            return await this.model('lawyer').find({
+                partner: true,
+                isActive: true,
+                isVerify: true
+            }).exec();
+        }
+
+    };
+
     lawyerSchema.methods = {
 
         /**

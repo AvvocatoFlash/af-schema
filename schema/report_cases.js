@@ -3,17 +3,17 @@ module.exports = (mongoose) => {
     mongoose.plugin(schema => { schema.options.usePushEach = true });
 
     let reportCaseSchema = mongoose.Schema({
-        total_case:                 { type: String },
-        total_case_approved:        { type: String },
-        total_case_archived:        { type: String },
-        total_case_partners:        { type: String },
-        total_case_approved_today:  { type: String },
-        total_case_received_today:  { type: String },
-        total_case_1credit:         { type: String },
-        total_case_2credits:         { type: String },
-        total_case_3credits:         { type: String },
-        total_case_4credits:         { type: String },
-        total_case_more_credits:     { type: String },
+        total_case:                 { type: Number },
+        total_case_approved:        { type: Number },
+        total_case_archived:        { type: Number },
+        total_case_partners:        { type: Number },
+        total_case_approved_today:  { type: Number },
+        total_case_received_today:  { type: Number },
+        total_case_1credit:         { type: Number },
+        total_case_2credits:         { type: Number },
+        total_case_3credits:         { type: Number },
+        total_case_4credits:         { type: Number },
+        total_case_more_credits:     { type: Number },
         updated_at:    { type: Date, default: Date.now },
         created_at:    { type: Date, default: Date.now }
     });

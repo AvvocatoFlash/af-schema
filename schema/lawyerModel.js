@@ -111,7 +111,10 @@ module.exports = (mongoose) => {
             return await this.model('lawyer').find({
                 partner: true,
                 isActive: true,
-            }).exec();
+            })
+                .populate('partner_details.comuni')
+                .populate('partner_details.specialisations')
+                .exec();
         }
 
     };

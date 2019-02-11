@@ -10,10 +10,13 @@ module.exports = (mongoose) => {
         total_case_approved_today:  { type: Number },
         total_case_received_today:  { type: Number },
         total_case_1credit:         { type: Number },
-        total_case_2credits:         { type: Number },
-        total_case_3credits:         { type: Number },
-        total_case_4credits:         { type: Number },
-        total_case_more_credits:     { type: Number },
+        total_case_2credits:        { type: Number },
+        total_case_3credits:        { type: Number },
+        total_case_4credits:        { type: Number },
+        total_case_more_credits:    { type: Number },
+        total_case_credits:         { type: Number },
+        total_case_credits_spent:   { type: Number },
+        total_case_max_profit:      { type: Number },
         updated_at:    { type: Date, default: Date.now },
         created_at:    { type: Date, default: Date.now }
     });

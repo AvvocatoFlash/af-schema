@@ -92,7 +92,7 @@ module.exports = (mongoose) => {
             return await this.model('case').find({
                 view: 2,
                 partnerStatus: true,
-                partnerBonus: {$ne: true},
+                // partnerBonus: {$ne: true},
                 partners: {
                     $in: [lawyerId]
                 },

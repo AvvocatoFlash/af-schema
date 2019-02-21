@@ -81,6 +81,14 @@ module.exports = (mongoose) => {
             return filtered;
         },
 
+        filterInvoiceKeys: function() {
+
+            const obj = this.toObject();
+            let filtered = pick(obj, '_id', 'shortId', 'subscriptionFrom', 'subscriptionTo', 'paid', 'chargeAttempt', 'ref_case', 'total', 'lastCharge', 'billing', 'cancel', 'credits', 'az_old', 'created_at');
+
+            return filtered;
+        },
+
         filterSubscriptionKeys: function() {
 
             const obj = this.toObject();

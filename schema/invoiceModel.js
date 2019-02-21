@@ -13,6 +13,7 @@ module.exports = (mongoose) => {
         subscription: {type: Boolean},
         subscriptionFrom: { type: Date },
         subscriptionTo: { type: Date },
+        priceCase: { type: String },
         paid: {type: Boolean},
         chargeAttempt: {type: Number, default: 0},
         shortId:     {type: String, unique: true, require: true},

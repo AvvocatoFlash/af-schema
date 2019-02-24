@@ -115,6 +115,29 @@ module.exports = (mongoose) => {
                 .populate('partner_details.comuni')
                 .populate('partner_details.specialisations')
                 .exec();
+        },
+
+        findWithPagination: async function(currentPage) {
+
+            const _xPage = 15;
+            currentPage = (currentPage && !isNaN(currentPage)) ? parseInt(currentPage) : 1;
+
+            let Lawyers = this.model('lawyer').find({isActive: true, indexing: true}).select('_id name surname permalink email');
+            let Count = this.model('lawyer').count({isActive: true, indexing: true});
+
+            Lawyers.limit(_xPage);
+            Lawyers.skip(_xPage * (currentPage - 1));
+            Lawyers.sort({'created_at':-1});
+
+            Lawyers = await Lawyers.lean().exec();
+            Count = await Count.exec();
+
+            return {
+                Lawyers,
+                totRecords: Count,
+                totPages: Math.ceil(Count / _xPage)
+            };
+
         }
 
     };

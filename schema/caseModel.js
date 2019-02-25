@@ -37,6 +37,8 @@ module.exports = (mongoose) => {
         partnerStatus: { type: Boolean, default: false },
         partnerBonus: { type: Boolean, default: false },
         sold:          { type: Boolean },
+        request_uri:   { type: String },
+        ref_lead:      { type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' },
         partners:      [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer' }],
         content:       { type: String },
         credit:        { type: Number },

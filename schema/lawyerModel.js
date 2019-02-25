@@ -117,7 +117,7 @@ module.exports = (mongoose) => {
                 .exec();
         },
 
-        findWithPagination: async function(currentPage, maxPage = 30, opts = {}, select = '') {
+        findWithPagination: async function(currentPage, limit = 30, opts = {}, select = '') {
 
             currentPage = (currentPage && !isNaN(currentPage)) ? parseInt(currentPage) : 1;
 
@@ -126,8 +126,8 @@ module.exports = (mongoose) => {
             let Lawyers = this.model('lawyer').find(optsParams).select(select);
             let Count = this.model('lawyer').count(optsParams);
 
-            Lawyers.limit(maxPage);
-            Lawyers.skip(maxPage * (currentPage - 1));
+            Lawyers.limit(limit);
+            Lawyers.skip(limit * (currentPage - 1));
             Lawyers.sort({'created_at':-1});
 
             Lawyers = await Lawyers.lean().exec();
@@ -136,7 +136,7 @@ module.exports = (mongoose) => {
             return {
                 Lawyers,
                 totRecords: Count,
-                totPages: Math.ceil(Count / maxPage)
+                totPages: Math.ceil(Count / limit)
             };
 
         }

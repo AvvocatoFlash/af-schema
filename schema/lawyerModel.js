@@ -98,11 +98,11 @@ module.exports = (mongoose) => {
         next();
     });
 
-    lawyerSchema.pre('find', function(next) {
-        // this.session_at = Date.now();
-        // if(!this.updated_at) this.updated_at = Date.now();
-        next();
-    });
+    // lawyerSchema.pre('find', function(next) {
+    //     // this.session_at = Date.now();
+    //     // if(!this.updated_at) this.updated_at = Date.now();
+    //     next();
+    // });
 
     lawyerSchema.statics = {
 

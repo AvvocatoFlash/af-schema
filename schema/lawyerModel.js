@@ -135,6 +135,7 @@ module.exports = (mongoose) => {
 
             return {
                 Lawyers,
+                currentPage,
                 totRecords: Count,
                 totPages: Math.ceil(Count / limit)
             };

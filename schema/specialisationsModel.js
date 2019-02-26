@@ -33,7 +33,7 @@ module.exports = (mongoose) => {
         filterKeys: function() {
 
             const obj = this.toObject();
-            const filtered = pick(obj, 'name', 'position');
+            const filtered = pick(obj, 'name', 'position', 'permalink');
 
             return filtered;
         }

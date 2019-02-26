@@ -34,7 +34,7 @@ module.exports = (mongoose) => {
         name:          { type: String },
         surname:       { type: String },
         mobile:        { type: String },
-        permalink:     { type: String, unique : true, required : true, dropDups: true, trim: true },
+        permalink:     { type: String, unique : true, dropDups: true, trim: true },
         ordine_anno:   { type: Number },
         ordine:        { type: Array },
         filters:       { type: Object },

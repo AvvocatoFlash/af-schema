@@ -19,7 +19,7 @@ module.exports = (mongoose) => {
 
     const provinciaSchema = mongoose.Schema({
         nome:    { type: String },
-        codice:  { type: String }
+        codice:  { type: String },
     });
 
     let comuniSchema = mongoose.Schema({

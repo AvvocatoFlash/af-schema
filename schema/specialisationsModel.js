@@ -6,6 +6,7 @@ module.exports = (mongoose) => {
 
     let spiecializzazioneSchema = mongoose.Schema({
         name:          { type: String },
+        permalink:     { type: String, sparse: true, unique: true, trim: true },
         position:      { type: Number },
         isActive:      { type: Boolean, default: true },
         created_at:    { type: Date, default: Date.now }

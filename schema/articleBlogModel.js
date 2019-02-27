@@ -45,6 +45,45 @@ module.exports = (mongoose) => {
         next();
     });
 
+
+    articleSchema.statics = {
+
+        findWithPagination: async function(currentPage, limit = 30, opts = {}, select = '') {
+
+            currentPage = (currentPage && !isNaN(currentPage)) ? parseInt(currentPage) : 1;
+
+            const optsParams = Object.assign({}, opts, { isActive: true });
+
+            let Articles = this.model('article')
+              .find(optsParams)
+              .select(select)
+              .populate('tags')
+              .populate('specialisations')
+              .populate('category')
+              .populate('subCategory')
+              .populate('author_id')
+              .sort({'created_at':-1});
+
+            let Count = this.model('article').count(optsParams);
+
+            Articles.limit(limit);
+            Articles.skip(limit * (currentPage - 1));
+            Articles.sort({'created_at':-1});
+
+            Articles = await Articles.lean().exec();
+            Count = await Count.exec();
+
+            return {
+                Articles,
+                currentPage,
+                totRecords: Count,
+                totPages: Math.ceil(Count / limit)
+            };
+
+        }
+
+    };
+
     return mongoose.model('article', articleSchema);
 
 };

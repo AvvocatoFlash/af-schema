@@ -48,20 +48,20 @@ module.exports = (mongoose) => {
 
     articleSchema.statics = {
 
-        findWithPagination: async function(currentPage, limit = 30, opts = {}, select = '') {
+        findWithPagination: async function(currentPage, limit = 30, opts = {}, select = '', selectTags = '', selectSpecialisations = '', selectCategory = '', selectSubCategory = '', selectAuthor = '') {
 
             currentPage = (currentPage && !isNaN(currentPage)) ? parseInt(currentPage) : 1;
 
-            const optsParams = Object.assign({}, opts, { isActive: true });
+            const optsParams = Object.assign({}, opts);
 
             let Articles = this.model('article')
               .find(optsParams)
               .select(select)
-              .populate('tags')
-              .populate('specialisations')
-              .populate('category')
-              .populate('subCategory')
-              .populate('author_id')
+              .populate('tags', selectTags)
+              .populate('specialisations', selectSpecialisations)
+              .populate('category', selectCategory)
+              .populate('subCategory', selectSubCategory)
+              .populate('author_id', selectAuthor)
               .sort({'created_at':-1});
 
             let Count = this.model('article').count(optsParams);

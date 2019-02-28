@@ -119,24 +119,21 @@ module.exports = (mongoose) => {
                 .exec();
         },
 
-        findWithPagination: async function(currentPage, limit = 30, opts = {}, select = '', {provincePermalink = null, specialisationPermalink = null}) {
+        findWithPagination: async function(currentPage, limit = 30, opts = {}, select = '', {province, specialisation}) {
 
             currentPage = (currentPage && !isNaN(currentPage)) ? parseInt(currentPage) : 1;
 
             const optsParams = Object.assign({}, opts, { isActive: true });
 
-            let Province = (provincePermalink) ? await this.model('province').find({permalink: provincePermalink}).exec() : null;
-            let Specialisation = (specialisationPermalink) ? await this.model('spiecializzazione').find({permalink: specialisationPermalink}).exec() : null;
-
             let Lawyers = this.model('lawyer').find(optsParams).select(select);
             let Count = this.model('lawyer').count(optsParams);
 
-            if(Province){
-                Lawyers.where('filters.province.provincia.nome').in([Province.name]);
+            if(province && province._id){
+                Lawyers.where('filters.province.provincia.nome').in([province.name]);
             }
 
-            if(Specialisation){
-                Lawyers.where('specialisations').in([Specialisation._id]);
+            if(specialisation && specialisation._id){
+                Lawyers.where('specialisations').in([specialisation._id]);
                 Lawyers.populate('specialisations', '_id name');
             }
 

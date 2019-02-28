@@ -1,6 +1,8 @@
 require('./specialisationsModel');
 require('./comuniModel');
 require('./tokenModel');
+require('./specialisationsModel');
+require('./provinceModel');
 
 const bcrypt    = require('bcrypt-nodejs');
 const pick = require('lodash.pick');
@@ -117,14 +119,26 @@ module.exports = (mongoose) => {
                 .exec();
         },
 
-        findWithPagination: async function(currentPage, limit = 30, opts = {}, select = '') {
+        findWithPagination: async function(currentPage, limit = 30, opts = {}, select = '', provincePermalink = null, specialisationPermalink = null) {
 
             currentPage = (currentPage && !isNaN(currentPage)) ? parseInt(currentPage) : 1;
 
             const optsParams = Object.assign({}, opts, { isActive: true });
 
+            let Province = (provincePermalink) ? await this.model('province').find({permalink: provincePermalink}).exec() : null;
+            let Specialisation = (specialisationPermalink) ? await this.model('spiecializzazione').find({permalink: specialisationPermalink}).exec() : null;
+
             let Lawyers = this.model('lawyer').find(optsParams).select(select);
             let Count = this.model('lawyer').count(optsParams);
+
+            if(Province){
+                Lawyers.where('filters.province.provincia.nome').in([Province.name]);
+            }
+
+            if(Specialisation){
+                Lawyers.where('specialisations').in([Specialisation._id]);
+                Lawyers.populate('specialisations', '_id name');
+            }
 
             Lawyers.limit(limit);
             Lawyers.skip(limit * (currentPage - 1));

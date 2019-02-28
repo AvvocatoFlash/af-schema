@@ -24,7 +24,7 @@ module.exports = (mongoose) => {
         metaDescription:  { type: String },
         title:            { type: String, required:true },
         subtitle:         { type: String },
-        permalink:        { type: String, required:true },
+        permalink:        { type: String, require: true, unique: true },
         avatar:           { type: Object },
         content:          { type: String },
         embed:            { type: String },

@@ -119,7 +119,7 @@ module.exports = (mongoose) => {
                 .exec();
         },
 
-        findWithPagination: async function(currentPage, limit = 30, opts = {}, select = '', provincePermalink = null, specialisationPermalink = null) {
+        findWithPagination: async function(currentPage, limit = 30, opts = {}, select = '', {provincePermalink = null, specialisationPermalink = null}) {
 
             currentPage = (currentPage && !isNaN(currentPage)) ? parseInt(currentPage) : 1;
 

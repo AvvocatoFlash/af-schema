@@ -130,11 +130,13 @@ module.exports = (mongoose) => {
 
             if(province && province._id){
                 Lawyers.where('filters.province.provincia.nome').in([province.name]);
+                Count.where('filters.province.provincia.nome').in([province.name]);
             }
 
             if(specialisation && specialisation._id){
                 Lawyers.where('specialisations').in(specialisation._id);
                 Lawyers.populate('specialisations', '_id name permalink');
+                Count.where('specialisations').in(specialisation._id);
             }
 
             Lawyers.limit(limit);

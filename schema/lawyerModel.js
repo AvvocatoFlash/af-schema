@@ -133,8 +133,8 @@ module.exports = (mongoose) => {
             }
 
             if(specialisation && specialisation._id){
-                Lawyers.where('specialisations').in([specialisation._id]);
-                Lawyers.populate('specialisations', '_id name');
+                Lawyers.where('specialisations').in(specialisation._id);
+                Lawyers.populate('specialisations', '_id name permalink');
             }
 
             Lawyers.limit(limit);

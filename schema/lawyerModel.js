@@ -150,7 +150,7 @@ module.exports = (mongoose) => {
                 Lawyers,
                 currentPage,
                 totRecords: Count,
-                totPages: Math.ceil(Count / limit)
+                totPages: Math.ceil(Count / limit) || 1
             };
 
         }

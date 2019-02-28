@@ -129,8 +129,8 @@ module.exports = (mongoose) => {
             let Count = this.model('lawyer').count(optsParams);
 
             if(province && province._id){
-                Lawyers.where('filters.province.provincia.nome').in(province.name);
-                Count.where('filters.province.provincia.nome').in(province.name);
+                Lawyers.where('filters.province.provincia.nome').in([province.name]);
+                Count.where('filters.province.provincia.nome').in([province.name]);
             }
 
             if(specialisation && specialisation._id){

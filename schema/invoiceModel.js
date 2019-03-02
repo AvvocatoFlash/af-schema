@@ -23,6 +23,7 @@ module.exports = (mongoose) => {
         credits:     { type: Number, default: 0 },
         cancel:      { type: Boolean },
         total:       { type: String },
+        type:        { type: String }, //card or bank-account
         stripe:      { type: Object },
         log:         { type: Object },
         az_old:      { type: Boolean, default: false },
@@ -44,6 +45,35 @@ module.exports = (mongoose) => {
     });
 
     invoiceSchema.statics = {
+
+        findWithPagination: async function(currentPage, limit = 30, opts = {}, select = '') {
+
+            currentPage = (currentPage && !isNaN(currentPage)) ? parseInt(currentPage) : 1;
+
+            const optsParams = Object.assign({}, opts);
+
+            let invoices = this.model('invoice')
+                .find(optsParams)
+                .select(select)
+                .sort({'created_at':-1});
+
+            let Count = this.model('article').count(optsParams);
+
+            invoices.limit(limit);
+            invoices.skip(limit * (currentPage - 1));
+            invoices.sort({'created_at':-1});
+
+            invoices = await invoices.lean().exec();
+            Count = await Count.exec();
+
+            return {
+                invoices,
+                currentPage,
+                totRecords: Count,
+                totPages: Math.ceil(Count / limit)
+            };
+
+        },
 
         subscriptionHistory: async function(lawyerId) {
 

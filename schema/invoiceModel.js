@@ -57,7 +57,7 @@ module.exports = (mongoose) => {
                 .select(select)
                 .sort({'created_at':-1});
 
-            let Count = this.model('article').count(optsParams);
+            let Count = this.model('article').countDocuments(optsParams);
 
             invoices.limit(limit);
             invoices.skip(limit * (currentPage - 1));

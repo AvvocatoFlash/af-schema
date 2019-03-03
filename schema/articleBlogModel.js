@@ -64,7 +64,7 @@ module.exports = (mongoose) => {
               .populate('author_id', selectAuthor)
               .sort({'created_at':-1});
 
-            let Count = this.model('article').count(optsParams);
+            let Count = this.model('article').countDocuments(optsParams);
 
             Articles.limit(limit);
             Articles.skip(limit * (currentPage - 1));

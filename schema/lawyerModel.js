@@ -126,7 +126,7 @@ module.exports = (mongoose) => {
             const optsParams = Object.assign({}, opts, { isActive: true });
 
             let Lawyers = this.model('lawyer').find(optsParams).select(select);
-            let Count = this.model('lawyer').count(optsParams);
+            let Count = this.model('lawyer').countDocuments(optsParams);
 
             if(province && province._id){
                 Lawyers.where('filters.province.provincia.nome').in([province.name]);

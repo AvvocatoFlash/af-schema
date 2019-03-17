@@ -139,8 +139,8 @@ module.exports = (mongoose) => {
                 Count.where('specialisations').in(specialisation._id);
             }
 
-            Lawyers.limit(limit);
-            Lawyers.skip(limit * (currentPage - 1));
+            Lawyers.limit(Number(limit));
+            Lawyers.skip(Number(limit) * (currentPage - 1));
             Lawyers.sort({'created_at':-1});
 
             Lawyers = await Lawyers.lean().exec();
@@ -150,7 +150,7 @@ module.exports = (mongoose) => {
                 Lawyers,
                 currentPage,
                 totRecords: Count,
-                totPages: Math.ceil(Count / limit) || 1
+                totPages: Math.ceil(Count / Number(limit)) || 1
             };
 
         }

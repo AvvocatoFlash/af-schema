@@ -139,7 +139,7 @@ module.exports = (mongoose) => {
                 Count.where('specialisations').in(specialisation._id);
             }
 
-            if (opts.indexOf('specialisations') > -1) {
+            if (select.indexOf('specialisations') > -1) {
                 Lawyers.populate('specialisations', '_id name permalink');
             }
 

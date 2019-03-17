@@ -139,6 +139,10 @@ module.exports = (mongoose) => {
                 Count.where('specialisations').in(specialisation._id);
             }
 
+            if (opts.indexOf('specialisations') > -1) {
+                Lawyers.populate('specialisations', '_id name permalink');
+            }
+
             Lawyers.limit(Number(limit));
             Lawyers.skip(Number(limit) * (currentPage - 1));
             Lawyers.sort({'created_at':-1});

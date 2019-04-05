@@ -4,6 +4,7 @@ require('./categoryBlogModel');
 require('./subCategoryBlogModel');
 require('./specialisationBlogModel');
 require('./tagBlogModel');
+require('./specialisationsModel');
 
 const pick = require('lodash.pick');
 
@@ -18,6 +19,7 @@ module.exports = (mongoose) => {
         category:         [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'categoryBlog'}],
         subCategory:      [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'subCategoryBlog' }],
         specialisations:  [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'spiecializzazioneBlog' }],
+        layersSpecialisations:  [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'specialisationsModel' }],
         tags:             [{ type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'tagBlog' }],
         metaTitle:        { type: String },
         isLawyerSignup:   { type: Boolean, default: false },

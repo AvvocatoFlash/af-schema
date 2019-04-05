@@ -14,6 +14,7 @@ module.exports = (mongoose) => {
         source: {type: Object},
         amount: {type: String},
         begin_at: {type: Date},
+        note: {type: String},
         end_at: {type: Date},
         unsubscribe_at: {type: Date},
         decline_reason: {type: String},

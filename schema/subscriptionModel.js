@@ -14,9 +14,9 @@ module.exports = (mongoose) => {
         customer: {type: Object},
         source: {type: Object},
         amount: {type: String},
-        begin_at: {type: String},
+        begin_at: {type: Date},
         note: {type: String},
-        end_at: {type: String},
+        end_at: {type: Date},
         unsubscribe_at: {type: Date},
         decline_reason: {type: String},
         updated_at: {type: Date, default: Date.now},
@@ -28,11 +28,11 @@ module.exports = (mongoose) => {
         if (!this.isNew) return next();
 
         if (this.begin_at) {
-            this.begin_at = moment.isMoment(this.begin_at) ? this.begin_at.format('YYYY-MM-DD') : moment(this.begin_at).format('YYYY-MM-DD');
+            this.begin_at = moment.isMoment(this.begin_at) ? this.begin_at.format() : moment(this.begin_at).format();
         }
 
         if (this.end_at) {
-            this.end_at = moment.isMoment(this.end_at) ? this.end_at.format('YYYY-MM-DD') : moment(this.end_at).format('YYYY-MM-DD');
+            this.end_at = moment.isMoment(this.end_at) ? this.end_at.format() : moment(this.end_at).format();
         }
 
         if (!this.created_at) {
@@ -45,11 +45,11 @@ module.exports = (mongoose) => {
     subscriptionSchema.pre('update', (next) => {
 
         if (this.begin_at) {
-            this.begin_at = moment.isMoment(this.begin_at) ? this.begin_at.format('YYYY-MM-DD') : moment(this.begin_at).format('YYYY-MM-DD');
+            this.begin_at = moment.isMoment(this.begin_at) ? this.begin_at.format() : moment(this.begin_at).format();
         }
 
         if (this.end_at) {
-            this.end_at = moment.isMoment(this.end_at) ? this.end_at.format('YYYY-MM-DD') : moment(this.end_at).format('YYYY-MM-DD');
+            this.end_at = moment.isMoment(this.end_at) ? this.end_at.format() : moment(this.end_at).format();
         }
 
         if(!this.updated_at) this.updated_at = Date.now();

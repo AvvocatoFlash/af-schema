@@ -12,8 +12,8 @@ module.exports = (mongoose) => {
 
     let invoiceSchema = mongoose.Schema({
         subscription: {type: Boolean},
-        subscriptionFrom: { type: String },
-        subscriptionTo: { type: String },
+        subscriptionFrom: { type: Date },
+        subscriptionTo: { type: Date },
         priceCase: { type: String },
         paid: {type: Boolean},
         chargeAttempt: {type: Number, default: 0},
@@ -37,11 +37,11 @@ module.exports = (mongoose) => {
         if (!this.isNew) return next();
 
         if (this.subscriptionFrom) {
-            this.subscriptionFrom = moment.isMoment(this.subscriptionFrom) ? this.subscriptionFrom.format('YYYY-MM-DD') : moment(this.subscriptionFrom).format('YYYY-MM-DD');
+            this.subscriptionFrom = moment.isMoment(this.subscriptionFrom) ? this.subscriptionFrom.format() : moment(this.subscriptionFrom).format();
         }
 
         if (this.subscriptionTo) {
-            this.subscriptionTo = moment.isMoment(this.subscriptionTo) ? this.subscriptionTo.format('YYYY-MM-DD') : moment(this.subscriptionTo).format('YYYY-MM-DD');
+            this.subscriptionTo = moment.isMoment(this.subscriptionTo) ? this.subscriptionTo.format() : moment(this.subscriptionTo).format();
         }
 
         this.created_at = Date.now();
@@ -52,11 +52,11 @@ module.exports = (mongoose) => {
     invoiceSchema.pre('update', function(next) {
 
         if (this.subscriptionFrom) {
-            this.subscriptionFrom = moment.isMoment(this.subscriptionFrom) ? this.subscriptionFrom.format('YYYY-MM-DD') : moment(this.subscriptionFrom).format('YYYY-MM-DD');
+            this.subscriptionFrom = moment.isMoment(this.subscriptionFrom) ? this.subscriptionFrom.format() : moment(this.subscriptionFrom).format();
         }
 
         if (this.subscriptionTo) {
-            this.subscriptionTo = moment.isMoment(this.subscriptionTo) ? this.subscriptionTo.format('YYYY-MM-DD') : moment(this.subscriptionTo).format('YYYY-MM-DD');
+            this.subscriptionTo = moment.isMoment(this.subscriptionTo) ? this.subscriptionTo.format() : moment(this.subscriptionTo).format();
         }
 
         this.updated_at = Date.now();

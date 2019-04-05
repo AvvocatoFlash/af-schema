@@ -50,6 +50,15 @@ module.exports = (mongoose) => {
     });
 
     invoiceSchema.pre('update', function(next) {
+
+        if (this.subscriptionFrom) {
+            this.subscriptionFrom = moment.isMoment(this.subscriptionFrom) ? this.subscriptionFrom.format('YYYY-MM-DD') : moment(this.subscriptionFrom).format('YYYY-MM-DD');
+        }
+
+        if (this.subscriptionTo) {
+            this.subscriptionTo = moment.isMoment(this.subscriptionTo) ? this.subscriptionTo.format('YYYY-MM-DD') : moment(this.subscriptionTo).format('YYYY-MM-DD');
+        }
+
         this.updated_at = Date.now();
         next();
     });

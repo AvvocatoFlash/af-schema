@@ -50,17 +50,18 @@ module.exports = (mongoose) => {
 
     articleSchema.statics = {
 
-        findWithPagination: async function(currentPage, limit = 30, opts = {}, select = '', selectTags = '', selectSpecialisations = '', selectCategory = '', selectSubCategory = '', selectAuthor = '') {
+        findWithPagination: async function(currentPage, limit = 30, opts = {}, select = '', selectTags = '', selectSpecialisations = '', selectLawyerSpecialisations = '', selectCategory = '', selectSubCategory = '', selectAuthor = '') {
 
             currentPage = (currentPage && !isNaN(currentPage)) ? parseInt(currentPage) : 1;
 
             const optsParams = Object.assign({}, opts);
 
-            let Articles = this.model('article')
+            let articles = this.model('article')
               .find(optsParams)
               .select(select)
               .populate('tags', selectTags)
               .populate('specialisations', selectSpecialisations)
+              .populate('layersSpecialisations', selectLawyerSpecialisations)
               .populate('category', selectCategory)
               .populate('subCategory', selectSubCategory)
               .populate('author_id', selectAuthor)
@@ -68,15 +69,15 @@ module.exports = (mongoose) => {
 
             let Count = this.model('article').countDocuments(optsParams);
 
-            Articles.limit(limit);
-            Articles.skip(limit * (currentPage - 1));
-            Articles.sort({'created_at':-1});
+            articles.limit(limit);
+            articles.skip(limit * (currentPage - 1));
+            articles.sort({'created_at':-1});
 
-            Articles = await Articles.lean().exec();
+            articles = await articles.lean().exec();
             Count = await Count.exec();
 
             return {
-                Articles,
+                articles,
                 currentPage,
                 totRecords: Count,
                 totPages: Math.ceil(Count / limit)

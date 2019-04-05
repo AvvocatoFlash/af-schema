@@ -4,6 +4,7 @@ require('./caseModel');
 
 const shortid = require('shortid');
 const pick = require('lodash.pick');
+const moment = require('moment');
 
 module.exports = (mongoose) => {
 
@@ -34,6 +35,15 @@ module.exports = (mongoose) => {
 
     invoiceSchema.pre('save', function(next) {
         if (!this.isNew) return next();
+
+        if (this.subscriptionFrom) {
+            this.subscriptionFrom = moment.isMoment(this.subscriptionFrom) ? this.subscriptionFrom.format('YYYY-MM-DD') : moment(this.subscriptionFrom).format('YYYY-MM-DD');
+        }
+
+        if (this.subscriptionTo) {
+            this.subscriptionTo = moment.isMoment(this.subscriptionTo) ? this.subscriptionTo.format('YYYY-MM-DD') : moment(this.subscriptionTo).format('YYYY-MM-DD');
+        }
+
         this.created_at = Date.now();
         this.updated_at = Date.now();
         next();

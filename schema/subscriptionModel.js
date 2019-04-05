@@ -1,5 +1,6 @@
 require('./lawyerModel');
 const pick = require('lodash.pick');
+const moment = require('moment');
 
 module.exports = (mongoose) => {
 
@@ -13,9 +14,9 @@ module.exports = (mongoose) => {
         customer: {type: Object},
         source: {type: Object},
         amount: {type: String},
-        begin_at: {type: Date},
+        begin_at: {type: String},
         note: {type: String},
-        end_at: {type: Date},
+        end_at: {type: String},
         unsubscribe_at: {type: Date},
         decline_reason: {type: String},
         updated_at: {type: Date, default: Date.now},
@@ -26,9 +27,32 @@ module.exports = (mongoose) => {
 
         if (!this.isNew) return next();
 
+        if (this.begin_at) {
+            this.begin_at = moment.isMoment(this.begin_at) ? this.begin_at.format('YYYY-MM-DD') : moment(this.begin_at).format('YYYY-MM-DD');
+        }
+
+        if (this.end_at) {
+            this.end_at = moment.isMoment(this.end_at) ? this.end_at.format('YYYY-MM-DD') : moment(this.end_at).format('YYYY-MM-DD');
+        }
+
         if (!this.created_at) {
             this.created_at = Date.now();
         }
+
+        next();
+    });
+
+    subscriptionSchema.pre('update', (next) => {
+
+        if (this.begin_at) {
+            this.begin_at = moment.isMoment(this.begin_at) ? this.begin_at.format('YYYY-MM-DD') : moment(this.begin_at).format('YYYY-MM-DD');
+        }
+
+        if (this.end_at) {
+            this.end_at = moment.isMoment(this.end_at) ? this.end_at.format('YYYY-MM-DD') : moment(this.end_at).format('YYYY-MM-DD');
+        }
+
+        if(!this.updated_at) this.updated_at = Date.now();
 
         next();
     });

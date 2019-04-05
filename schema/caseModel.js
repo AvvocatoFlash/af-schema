@@ -99,8 +99,8 @@ module.exports = (mongoose) => {
                     $in: [lawyerId]
                 },
                 posted_at: {
-                    "$gte": from,
-                    "$lte": to,
+                    "$gte": moment.isMoment(from) ? from.startOf('day') : moment(from).startOf('day'),
+                    "$lte": moment.isMoment(to) ? to.endOf('day') : moment(to).endOf('day'),
                 }}).exec();
         }
 

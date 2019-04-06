@@ -44,6 +44,10 @@ module.exports = (mongoose) => {
             this.subscriptionTo = moment.isMoment(this.subscriptionTo) ? this.subscriptionTo.format() : moment(this.subscriptionTo).format();
         }
 
+        if (this.lastCharge) {
+            this.lastCharge = moment.isMoment(this.lastCharge) ? this.lastCharge.format() : moment(this.lastCharge).format();
+        }
+
         this.created_at = Date.now();
         this.updated_at = Date.now();
         next();
@@ -57,6 +61,10 @@ module.exports = (mongoose) => {
 
         if (this.subscriptionTo) {
             this.subscriptionTo = moment.isMoment(this.subscriptionTo) ? this.subscriptionTo.format() : moment(this.subscriptionTo).format();
+        }
+
+        if (this.lastCharge) {
+            this.lastCharge = moment.isMoment(this.lastCharge) ? this.lastCharge.format() : moment(this.lastCharge).format();
         }
 
         this.updated_at = Date.now();

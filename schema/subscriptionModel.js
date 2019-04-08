@@ -1,6 +1,7 @@
 require('./lawyerModel');
 const pick = require('lodash.pick');
 const moment = require('moment');
+const utils = require('../utils');
 
 module.exports = (mongoose) => {
 
@@ -28,11 +29,11 @@ module.exports = (mongoose) => {
         if (!this.isNew) return next();
 
         if (this.begin_at) {
-            this.begin_at = moment.isMoment(this.begin_at) ? this.begin_at.format() : moment(this.begin_at).format();
+            this.begin_at = utils.momentDate(this.begin_at);
         }
 
         if (this.end_at) {
-            this.end_at = moment.isMoment(this.end_at) ? this.end_at.format() : moment(this.end_at).format();
+            this.end_at = utils.momentDate(this.end_at);
         }
 
         if (!this.created_at) {
@@ -45,11 +46,11 @@ module.exports = (mongoose) => {
     subscriptionSchema.pre('update', (next) => {
 
         if (this.begin_at) {
-            this.begin_at = moment.isMoment(this.begin_at) ? this.begin_at.format() : moment(this.begin_at).format();
+            this.begin_at = utils.momentDate(this.begin_at);
         }
 
         if (this.end_at) {
-            this.end_at = moment.isMoment(this.end_at) ? this.end_at.format() : moment(this.end_at).format();
+            this.end_at = utils.momentDate(this.end_at);
         }
 
         if(!this.updated_at) this.updated_at = Date.now();

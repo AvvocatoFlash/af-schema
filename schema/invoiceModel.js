@@ -1,10 +1,8 @@
 require('bcrypt-nodejs');
 require('./lawyerModel');
 require('./caseModel');
-
-const shortid = require('shortid');
+const utils = require('../utils');
 const pick = require('lodash.pick');
-const moment = require('moment');
 
 module.exports = (mongoose) => {
 
@@ -37,15 +35,15 @@ module.exports = (mongoose) => {
         if (!this.isNew) return next();
 
         if (this.subscriptionFrom) {
-            this.subscriptionFrom = moment.isMoment(this.subscriptionFrom) ? this.subscriptionFrom.format() : moment(this.subscriptionFrom).format();
+            this.subscriptionFrom = utils.momentDate(this.subscriptionFrom);
         }
 
         if (this.subscriptionTo) {
-            this.subscriptionTo = moment.isMoment(this.subscriptionTo) ? this.subscriptionTo.format() : moment(this.subscriptionTo).format();
+            this.subscriptionTo = utils.momentDate(this.subscriptionTo);
         }
 
         if (this.lastCharge) {
-            this.lastCharge = moment.isMoment(this.lastCharge) ? this.lastCharge.format() : moment(this.lastCharge).format();
+            this.lastCharge = utils.momentDate(this.lastCharge);
         }
 
         this.created_at = Date.now();
@@ -56,15 +54,15 @@ module.exports = (mongoose) => {
     invoiceSchema.pre('update', function(next) {
 
         if (this.subscriptionFrom) {
-            this.subscriptionFrom = moment.isMoment(this.subscriptionFrom) ? this.subscriptionFrom.format() : moment(this.subscriptionFrom).format();
+            this.subscriptionFrom = utils.momentDate(this.subscriptionFrom);
         }
 
         if (this.subscriptionTo) {
-            this.subscriptionTo = moment.isMoment(this.subscriptionTo) ? this.subscriptionTo.format() : moment(this.subscriptionTo).format();
+            this.subscriptionTo = utils.momentDate(this.subscriptionTo);
         }
 
         if (this.lastCharge) {
-            this.lastCharge = moment.isMoment(this.lastCharge) ? this.lastCharge.format() : moment(this.lastCharge).format();
+            this.lastCharge = utils.momentDate(this.lastCharge);
         }
 
         this.updated_at = Date.now();

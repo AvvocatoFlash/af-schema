@@ -4,7 +4,15 @@ const Utils = {
 
   momentDate: (value) => {
 
-    return moment.isMoment(value) ? value.format() : moment(value).format();
+    const date = moment.isMoment(value) ? value.format() : moment.utc(value).format();
+
+    console.log('moment Date', date);
+    return date;
+  },
+
+  momentValueOf: (value) => {
+    console.log(moment.utc(value).valueOf());
+    return moment.isMoment(value) ? value.valueOf() : moment.utc(value).valueOf();
   }
 
 };

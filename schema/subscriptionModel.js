@@ -2,7 +2,6 @@ require('./lawyerModel');
 const pick = require('lodash.pick');
 const moment = require('moment');
 const utils = require('../utils');
-const moment = require('moment');
 
 module.exports = (mongoose) => {
 

@@ -8,7 +8,7 @@ const Utils = {
   },
 
   momentFormat: (value) => {
-    return moment(value).format("dddd, MMMM Do YYYY, h:mm:ss a").toString();
+    return moment(value).format("dddd, MMMM Do YYYY, h:mm:ss a");
   }
 
 };

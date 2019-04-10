@@ -15,9 +15,9 @@ module.exports = (mongoose) => {
     customer: {type: Object},
     source: {type: Object},
     amount: {type: String},
-    begin_at: {type: String, default: () => moment().format("dddd, MMMM Do YYYY, h:mm:ss a")},
+    begin_at: {type: String},
     note: {type: String},
-    end_at: {type: String, default: () => moment().format("dddd, MMMM Do YYYY, h:mm:ss a")},
+    end_at: {type: String},
     unsubscribe_at: {type: Date},
     decline_reason: {type: String},
     updated_at: {type: Date, default: Date.now},
@@ -28,13 +28,13 @@ module.exports = (mongoose) => {
 
     if (!this.isNew) return next();
 
-    // if (this.begin_at) {
-    //     this.begin_at = utils.momentFormat(this.begin_at);
-    // }
+    if (this.begin_at) {
+        this.begin_at = utils.momentFormat(this.begin_at);
+    }
 
-    // if (this.end_at) {
-    //     this.end_at = utils.momentFormat(this.end_at);
-    // }
+    if (this.end_at) {
+        this.end_at = utils.momentFormat(this.end_at);
+    }
 
     if (!this.created_at) {
       this.created_at = Date.now();
@@ -46,11 +46,11 @@ module.exports = (mongoose) => {
   subscriptionSchema.pre('update', (next) => {
 
     if (this.begin_at) {
-      this.begin_at = utils.momentDate(this.begin_at);
+      this.begin_at = utils.momentFormat(this.begin_at);
     }
 
     if (this.end_at) {
-      this.end_at = utils.momentDate(this.end_at);
+      this.end_at = utils.momentFormat(this.end_at);
     }
 
     if (!this.updated_at) this.updated_at = Date.now();

@@ -11,8 +11,8 @@ module.exports = (mongoose) => {
 
     let invoiceSchema = mongoose.Schema({
         subscription: {type: Boolean},
-        subscriptionFrom: { type: String, default: () => moment().format("dddd, MMMM Do YYYY, h:mm:ss a") },
-        subscriptionTo: { type: String, default: () => moment().format("dddd, MMMM Do YYYY, h:mm:ss a") },
+        subscriptionFrom: { type: String },
+        subscriptionTo: { type: String },
         priceCase: { type: String },
         paid: {type: Boolean},
         chargeAttempt: {type: Number, default: 0},
@@ -27,7 +27,7 @@ module.exports = (mongoose) => {
         stripe:      { type: Object },
         log:         { type: Object },
         az_old:      { type: Boolean, default: false },
-        lastCharge:  { type: String, default: () => moment().format("dddd, MMMM Do YYYY, h:mm:ss a") },
+        lastCharge:  { type: String },
         updated_at:  { type: Date, default: Date.now },
         created_at:  { type: Date, default: Date.now }
     });
@@ -35,17 +35,17 @@ module.exports = (mongoose) => {
     invoiceSchema.pre('save', function(next) {
         if (!this.isNew) return next();
 
-        // if (this.subscriptionFrom) {
-        //     this.subscriptionFrom = utils.momentFormat(this.subscriptionFrom);
-        // }
-        //
-        // if (this.subscriptionTo) {
-        //     this.subscriptionTo = utils.momentFormat(this.subscriptionTo);
-        // }
-        //
-        // if (this.lastCharge) {
-        //     this.lastCharge = utils.momentFormat(this.lastCharge);
-        // }
+        if (this.subscriptionFrom) {
+            this.subscriptionFrom = utils.momentFormat(this.subscriptionFrom);
+        }
+
+        if (this.subscriptionTo) {
+            this.subscriptionTo = utils.momentFormat(this.subscriptionTo);
+        }
+
+        if (this.lastCharge) {
+            this.lastCharge = utils.momentFormat(this.lastCharge);
+        }
 
         this.created_at = Date.now();
         this.updated_at = Date.now();
@@ -54,17 +54,17 @@ module.exports = (mongoose) => {
 
     invoiceSchema.pre('update', function(next) {
 
-        // if (this.subscriptionFrom) {
-        //     this.subscriptionFrom = utils.momentDate(this.subscriptionFrom);
-        // }
-        //
-        // if (this.subscriptionTo) {
-        //     this.subscriptionTo = utils.momentDate(this.subscriptionTo);
-        // }
-        //
-        // if (this.lastCharge) {
-        //     this.lastCharge = utils.momentDate(this.lastCharge);
-        // }
+        if (this.subscriptionFrom) {
+            this.subscriptionFrom = utils.momentFormat(this.subscriptionFrom);
+        }
+
+        if (this.subscriptionTo) {
+            this.subscriptionTo = utils.momentFormat(this.subscriptionTo);
+        }
+
+        if (this.lastCharge) {
+            this.lastCharge = utils.momentFormat(this.lastCharge);
+        }
 
         this.updated_at = Date.now();
         next();

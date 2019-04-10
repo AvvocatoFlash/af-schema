@@ -10,8 +10,8 @@ module.exports = (mongoose) => {
 
     let invoiceSchema = mongoose.Schema({
         subscription: {type: Boolean},
-        subscriptionFrom: { type: Date },
-        subscriptionTo: { type: Date },
+        subscriptionFrom: { type: String },
+        subscriptionTo: { type: String },
         priceCase: { type: String },
         paid: {type: Boolean},
         chargeAttempt: {type: Number, default: 0},
@@ -35,15 +35,15 @@ module.exports = (mongoose) => {
         if (!this.isNew) return next();
 
         if (this.subscriptionFrom) {
-            this.subscriptionFrom = utils.momentDate(this.subscriptionFrom);
+            this.subscriptionFrom = utils.momentFormat(this.subscriptionFrom);
         }
 
         if (this.subscriptionTo) {
-            this.subscriptionTo = utils.momentDate(this.subscriptionTo);
+            this.subscriptionTo = utils.momentFormat(this.subscriptionTo);
         }
 
         if (this.lastCharge) {
-            this.lastCharge = utils.momentDate(this.lastCharge);
+            this.lastCharge = utils.momentFormat(this.lastCharge);
         }
 
         this.created_at = Date.now();

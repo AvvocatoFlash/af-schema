@@ -4,15 +4,11 @@ const Utils = {
 
   momentDate: (value) => {
 
-    const date = moment.isMoment(value) ? value.format() : moment.utc(value).format();
-
-    console.log('moment Date', date);
-    return date;
+    return moment.isMoment(value) ? value.format() : moment.utc(value).format();
   },
 
-  momentValueOf: (value) => {
-    console.log(moment.utc(value).valueOf());
-    return moment.isMoment(value) ? value.valueOf() : moment.utc(value).valueOf();
+  momentFormat: (value) => {
+    return moment.isMoment(value) ? value.format('MM/DD/YYYY') : moment(value).format('MM/DD/YYYY');
   }
 
 };

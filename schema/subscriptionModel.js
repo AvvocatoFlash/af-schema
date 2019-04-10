@@ -29,11 +29,11 @@ module.exports = (mongoose) => {
         if (!this.isNew) return next();
 
         if (this.begin_at) {
-            this.begin_at = utils.momentDate(this.begin_at);
+            this.begin_at = utils.momentFormat(this.begin_at);
         }
 
         if (this.end_at) {
-            this.end_at = utils.momentDate(this.end_at);
+            this.end_at = utils.momentFormat(this.end_at);
         }
 
         if (!this.created_at) {

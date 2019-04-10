@@ -8,7 +8,7 @@ const Utils = {
   },
 
   momentFormat: (value) => {
-    return moment.isMoment(value) ? value.format('MM/DD/YYYY') : moment(value).format('MM/DD/YYYY');
+    return moment.isMoment(value) ? value.format('MM/DD/YYYY') : moment.utc(value).format('MM/DD/YYYY');
   }
 
 };

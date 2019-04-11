@@ -9,8 +9,6 @@ const Utils = {
 
   momentFormat: (value) => {
     const date = moment(value).format();
-    console.log('momentFormat');
-    console.log(date);
     return date;
   }
 

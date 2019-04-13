@@ -19,7 +19,8 @@ module.exports = (mongoose) => {
         total_case_monthly_3credits:        { type: Number },
         total_case_monthly_4credits:        { type: Number },
         total_case_monthly_more_credits:    { type: Number },
-        total_case_monthly_credits_spent:   { type: Number },
+      total_case_monthly_credits_spent:   { type: Number },
+      total_case_monthly_credits:   { type: Number },
         total_case_monthly_max_profit:      { type: Number },
 
         updated_at:    { type: Date, default: Date.now },

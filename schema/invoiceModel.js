@@ -116,7 +116,7 @@ module.exports = mongoose => {
       invoices.skip(limit * (currentPage - 1));
       invoices.sort({'created_at': -1});
 
-      invoices = await invoices.lean().exec();
+      invoices = await invoices.exec();
       Count = await Count.exec();
 
       return {

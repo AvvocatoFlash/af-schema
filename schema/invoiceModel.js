@@ -79,12 +79,12 @@ module.exports = mongoose => {
 
       const optsParams = Object.assign({}, opts);
 
-      let invoices = this.model('invoice')
+      let invoices = mongoose.model('invoice')
         .find(optsParams)
         .select(select)
         .sort({'created_at': -1});
 
-      let Count = this.model('invoice').countDocuments(optsParams);
+      let Count = mongoose.model('invoice').countDocuments(optsParams);
 
       invoices.limit(limit);
       invoices.skip(limit * (currentPage - 1));
@@ -108,7 +108,7 @@ module.exports = mongoose => {
         return;
       }
 
-      return await this.model('invoice').find({
+      return await mongoose.model('invoice').find({
         subscription: true,
         ref_lawyer: lawyerId,
       }).sort('-subscriptionFrom').exec();

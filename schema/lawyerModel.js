@@ -112,7 +112,7 @@ module.exports = mongoose => {
 
     findSubscribers: async () => {
 
-      return await this.model('lawyer').find({
+      return await mongoose.model('lawyer').find({
         partner: true,
         isActive: true,
       })
@@ -127,8 +127,8 @@ module.exports = mongoose => {
 
       const optsParams = Object.assign({}, opts, {isActive: true});
 
-      let Lawyers = this.model('lawyer').find(optsParams).select(select);
-      let Count = this.model('lawyer').countDocuments(optsParams);
+      let Lawyers = mongoose.model('lawyer').find(optsParams).select(select);
+      let Count = mongoose.model('lawyer').countDocuments(optsParams);
 
       if (province && province._id) {
         Lawyers.where('filters.province.provincia.nome').in([province.name]);

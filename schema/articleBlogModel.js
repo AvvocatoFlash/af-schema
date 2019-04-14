@@ -58,7 +58,7 @@ module.exports = mongoose => {
 
       const optsParams = Object.assign({}, opts);
 
-      let articles = this.model('article')
+      let articles = mongoose.model('article')
         .find(optsParams)
         .select(select)
         .populate('tags', selectTags)
@@ -69,7 +69,7 @@ module.exports = mongoose => {
         .populate('author_id', selectAuthor)
         .sort({'created_at': -1});
 
-      let Count = this.model('article').countDocuments(optsParams);
+      let Count = mongoose.model('article').countDocuments(optsParams);
 
       articles.limit(limit);
       articles.skip(limit * (currentPage - 1));

@@ -93,7 +93,7 @@ module.exports = mongoose => {
         return;
       }
 
-      return await this.model('case').find({
+      return await mongoose.model('case').find({
         view: 2,
         partnerStatus: true,
         // partnerBonus: {$ne: true},

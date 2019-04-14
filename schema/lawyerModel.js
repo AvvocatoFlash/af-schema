@@ -169,7 +169,7 @@ module.exports = mongoose => {
      * Generate Salt Password
      * @returns {string} Salt
      */
-    generateHash: (password) => {
+    generateHash: function (password) {
       return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
     },
 
@@ -178,7 +178,7 @@ module.exports = mongoose => {
      * @param {String} password
      * @return {Boolean} Valid Password
      */
-    validPassword: (password) => {
+    validPassword: function (password) {
       return bcrypt.compareSync(password, this.password);
     },
 
@@ -188,7 +188,7 @@ module.exports = mongoose => {
      * @param {String} percentuge
      * @return {Boolean} Valid Password
      */
-    topup: async (credits, percentuage) => {
+    topup: async function (credits, percentuage) {
 
       const lawyer = this;
       const topupCreditsDc = new Decimal(credits);
@@ -209,7 +209,7 @@ module.exports = mongoose => {
      * Filter Keys
      * @return {Object} Custom Keys
      */
-    filterKeys: () => {
+    filterKeys: function () {
 
       const obj = this.toObject();
       const filtered = pick(obj, '_id', 'email', 'name', 'surname', 'permalink', 'indexing', 'credits', 'image', 'isVerify', 'isActive', 'mobile', 'filters', 'specialisations', 'token', 'type', 'onboarding', 'notifications', 'partner', 'partner_details', 'created_at');
@@ -217,7 +217,7 @@ module.exports = mongoose => {
       return filtered;
     },
 
-    settingFilterKeys: () => {
+    settingFilterKeys: function () {
 
       const obj = this.toObject();
       const filtered = pick(obj, '_id', 'email', 'name', 'surname', 'permalink', 'credits', 'image', 'isVerify', 'isActive', 'mobile', 'filters', 'specialisations', 'token', 'type', 'onboarding', 'notifications', 'partner', 'partner_details', 'officeName', 'offices', 'officeNumber', 'website', 'ordine', 'ordine_anno', 'public', 'indexing', 'session_at', 'created_at');
@@ -225,7 +225,7 @@ module.exports = mongoose => {
       return filtered;
     },
 
-    publicFilterKeys: () => {
+    publicFilterKeys: function () {
 
       const obj = this.toObject();
       const filtered = pick(obj, '_id', 'email', 'name', 'surname', 'permalink', 'indexing', 'image', 'filters', 'isVerify', 'specialisations', 'officeName', 'offices', 'officeNumber', 'website', 'ordine', 'ordine_anno', 'public', 'created_at');

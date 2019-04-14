@@ -31,14 +31,14 @@ module.exports = mongoose => {
     created_at: {type: Date, default: Date.now}
   });
 
-  landingSchema.pre('save', (next) => {
+  landingSchema.pre('save', function (next) {
     if (!this.isNew) return next();
     if (!this.created_at) this.created_at = Date.now();
     if (!this.updated_at) this.updated_at = Date.now();
     next();
   });
 
-  landingSchema.pre('update', (next) => {
+  landingSchema.pre('update', function (next) {
     if (!this.updated_at) this.updated_at = Date.now();
     next();
   });
@@ -49,7 +49,7 @@ module.exports = mongoose => {
      * Filter Keys
      * @return {Object} Custom Keys
      */
-    publicFilterKeys: () => {
+    publicFilterKeys: function () {
 
       const obj = this.toObject();
       const filtered = pick(obj, '_id', 'iconLabel', 'permalink');
@@ -61,7 +61,7 @@ module.exports = mongoose => {
      * Filter Keys
      * @return {Object} Custom Keys
      */
-    footerFilterKeys: () => {
+    footerFilterKeys: function () {
 
       const obj = this.toObject();
       const filtered = pick(obj, '_id', 'footerLabel', 'permalink');

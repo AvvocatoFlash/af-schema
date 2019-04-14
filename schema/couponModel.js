@@ -24,7 +24,7 @@ module.exports = mongoose => {
     created_at: {type: Date, default: Date.now}
   });
 
-  couponSchema.pre('save', (next) => {
+  couponSchema.pre('save', function (next) {
     if (!this.isNew) return next();
     if (!this.created_at) {
       this.created_at = Date.now();
@@ -38,7 +38,7 @@ module.exports = mongoose => {
      * Filter Keys
      * @return {Object} Custom Keys
      */
-    minFilterKeys: () => {
+    minFilterKeys: function () {
 
       const obj = this.toObject();
       const filtered = pick(obj, '_id', 'title', 'description', 'code', 'amount', 'type');

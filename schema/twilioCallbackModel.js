@@ -10,7 +10,7 @@ module.exports = mongoose => {
     created_at: {type: Date, default: Date.now}
   });
 
-  twilioCallbackSchema.pre('save', (next) => {
+  twilioCallbackSchema.pre('save', function (next) {
     if (!this.isNew) return next();
     if (!this.created_at) this.created_at = Date.now();
     next();

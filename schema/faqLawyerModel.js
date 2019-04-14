@@ -15,7 +15,7 @@ module.exports = mongoose => {
     created_at: {type: Date, default: Date.now}
   });
 
-  faqLawyerSchema.pre('save', (next) => {
+  faqLawyerSchema.pre('save', function (next) {
     if (!this.isNew) return next();
     if (!this.created_at) this.created_at = Date.now();
     next();

@@ -33,7 +33,7 @@ module.exports = mongoose => {
     created_at: {type: Date, default: Date.now}
   });
 
-  invoiceSchema.pre('save', (next) => {
+  invoiceSchema.pre('save', function (next) {
     if (!this.isNew) return next();
 
     if (this.subscriptionFrom) {
@@ -53,7 +53,7 @@ module.exports = mongoose => {
     next();
   });
 
-  invoiceSchema.pre('update', (next) => {
+  invoiceSchema.pre('update', function (next) {
 
     if (this.subscriptionFrom) {
       this.subscriptionFrom = utils.momentFormat(this.subscriptionFrom);
@@ -73,18 +73,18 @@ module.exports = mongoose => {
 
   invoiceSchema.statics = {
 
-    findWithPagination: async (currentPage, limit = 30, opts = {}, select = '') => {
+    findWithPagination: async function (currentPage, limit = 30, opts = {}, select = '') {
 
       currentPage = (currentPage && !isNaN(currentPage)) ? parseInt(currentPage) : 1;
 
       const optsParams = Object.assign({}, opts);
 
-      let invoices = mongoose.model('invoice')
+      let invoices = this.model('invoice')
         .find(optsParams)
         .select(select)
         .sort({'created_at': -1});
 
-      let Count = mongoose.model('invoice').countDocuments(optsParams);
+      let Count = this.model('invoice').countDocuments(optsParams);
 
       invoices.limit(limit);
       invoices.skip(limit * (currentPage - 1));
@@ -102,13 +102,13 @@ module.exports = mongoose => {
 
     },
 
-    subscriptionHistory: async (lawyerId) => {
+    subscriptionHistory: async function (lawyerId) {
 
       if (!lawyerId) {
         return;
       }
 
-      return await mongoose.model('invoice').find({
+      return await this.model('invoice').find({
         subscription: true,
         ref_lawyer: lawyerId,
       }).sort('-subscriptionFrom').exec();
@@ -122,7 +122,7 @@ module.exports = mongoose => {
      * Filter Keys
      * @return {Object} Custom Keys
      */
-    filterKeys: () => {
+    filterKeys: function () {
 
       const obj = this.toObject();
       let filtered = pick(obj, '_id', 'shortId', 'ref_lawyer', 'billing', 'cancel', 'credits', 'total', 'stripe', 'log', 'az_old', 'lastCharge', 'created_at');
@@ -139,7 +139,7 @@ module.exports = mongoose => {
       return filtered;
     },
 
-    filterInvoiceKeys: () => {
+    filterInvoiceKeys: function () {
 
       const obj = this.toObject();
       let filtered = pick(obj, '_id', 'shortId', 'subscription', 'subscriptionFrom', 'subscriptionTo', 'paid', 'chargeAttempt', 'ref_case', 'total', 'priceCase', 'lastCharge', 'billing', 'cancel', 'credits', 'az_old', 'created_at');
@@ -147,7 +147,7 @@ module.exports = mongoose => {
       return filtered;
     },
 
-    filterSubscriptionKeys: () => {
+    filterSubscriptionKeys: function () {
 
       const obj = this.toObject();
       let filtered = pick(obj, '_id', 'shortId', 'subscriptionFrom', 'subscriptionTo', 'paid', 'chargeAttempt', 'ref_case', 'total', 'lastCharge');

@@ -17,14 +17,14 @@ module.exports = mongoose => {
     created_at: {type: Date, default: Date.now}
   });
 
-  subCategoryBlogSchema.pre('save', (next) => {
+  subCategoryBlogSchema.pre('save', function (next) {
     if (!this.isNew) return next();
     if (!this.created_at) this.created_at = Date.now();
     if (!this.updated_at) this.updated_at = Date.now();
     next();
   });
 
-  subCategoryBlogSchema.pre('update', (next) => {
+  subCategoryBlogSchema.pre('update', function (next) {
     if (!this.updated_at) this.updated_at = Date.now();
     next();
   });

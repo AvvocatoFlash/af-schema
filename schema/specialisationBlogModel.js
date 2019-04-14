@@ -13,13 +13,13 @@ module.exports = mongoose => {
     created_at: {type: Date, default: Date.now}
   });
 
-  spiecializzazioneBlogSchema.pre('save', (next) => {
-    if (!this.isNew) return next()
+  spiecializzazioneBlogSchema.pre('save', function (next) {
+    if (!this.isNew) return next();
     if (!this.created_at) this.created_at = Date.now();
     if (!this.updated_at) this.updated_at = Date.now();
     next();
   });
-  spiecializzazioneBlogSchema.pre('update', (next) => {
+  spiecializzazioneBlogSchema.pre('update', function (next) {
     if (!this.updated_at) this.updated_at = Date.now();
     next();
   });

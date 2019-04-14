@@ -87,13 +87,13 @@ module.exports = mongoose => {
 
   caseSchema.statics = {
 
-    findSubscribeByRange: async (lawyerId, from, to) => {
+    findSubscribeByRange: async function (lawyerId, from, to) {
 
       if (!lawyerId || !from || !to) {
         return;
       }
 
-      return await mongoose.model('case').find({
+      return await this.model('case').find({
         view: 2,
         partnerStatus: true,
         // partnerBonus: {$ne: true},
@@ -115,7 +115,7 @@ module.exports = mongoose => {
      * Filter Keys
      * @return {Object} Custom Keys
      */
-    minFilterKeys: () => {
+    minFilterKeys: function () {
 
       const obj = this.toObject();
       const filtered = pick(obj, '_id', 'comune', 'description', 'time', 'mobile', 'email', 'view', 'sms_verify', 'created_at');
@@ -123,7 +123,7 @@ module.exports = mongoose => {
       return filtered;
     },
 
-    customerFilterKeys: () => {
+    customerFilterKeys: function () {
 
       const obj = this.toObject();
       const filtered = pick(obj, '_id', 'fullname', 'declined', 'description', 'comune', 'created_at', 'sms_verify', 'buy', 'selected', 'title', 'specialisations', 'user', 'mobile', 'email', 'time', 'followup', 'followupContact', 'status');
@@ -131,7 +131,7 @@ module.exports = mongoose => {
       return filtered;
     },
 
-    purchasedFilterKeys: () => {
+    purchasedFilterKeys: function () {
 
       const obj = this.toObject();
       const filtered = pick(obj, '_id', 'fullname', 'declined', 'selected', 'posted_at', 'patrocinio', 'urgent', 'sms_verify', 'buy', 'selected', 'title', 'content', 'comune', 'specialisations', 'user', 'mobile', 'email', 'time', 'status', 'credit', 'followup', 'followupContact');
@@ -139,7 +139,7 @@ module.exports = mongoose => {
       return filtered;
     },
 
-    searchFilterKeys: () => {
+    searchFilterKeys: function () {
 
       const obj = this.toObject();
       const filtered = pick(obj, '_id', 'declined', 'sold', 'alert', 'posted_at', 'patrocinio', 'urgent', 'title', 'sms_verify', 'content', 'comune', 'specialisations', 'credit', 'followup', 'followupContact');

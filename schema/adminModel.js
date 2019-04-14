@@ -22,7 +22,7 @@ module.exports = mongoose => {
     created_at: {type: Date, default: Date.now}
   });
 
-  adminSchema.pre('save', (next) => {
+  adminSchema.pre('save', function (next) {
 
     if (!this.isNew) return next();
 
@@ -43,16 +43,16 @@ module.exports = mongoose => {
     next();
   });
 
-  adminSchema.pre('update', (next) => {
+  adminSchema.pre('update', function (next) {
     if (!this.updated_at) this.updated_at = Date.now();
     next();
   });
 
-  adminSchema.methods.generateHash = (password) => {
+  adminSchema.methods.generateHash = function (password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
   };
 
-  adminSchema.methods.validPassword = (password) => {
+  adminSchema.methods.validPassword = function (password) {
     return bcrypt.compareSync(password, this.password);
   };
 

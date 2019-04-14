@@ -18,19 +18,18 @@ module.exports = mongoose => {
     postcode: {type: String},
     city: {type: String},
     country: {type: String},
-    type: {type: String, enum: ['company', 'private']},
     updated_at: {type: Date, default: Date.now},
     created_at: {type: Date, default: Date.now}
   });
 
-  billingSchema.pre('save', (next) => {
+  billingSchema.pre('save', function (next) {
     if (!this.isNew) return next();
     if (!this.created_at) this.created_at = Date.now();
     if (!this.updated_at) this.updated_at = Date.now();
     next();
   });
 
-  billingSchema.pre('update', (next) => {
+  billingSchema.pre('update', function (next) {
     if (this.updated_at) this.updated_at = Date.now();
     next();
   });

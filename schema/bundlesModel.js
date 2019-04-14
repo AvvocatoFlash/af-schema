@@ -21,7 +21,7 @@ module.exports = mongoose => {
     created_at: {type: Date, default: Date.now}
   });
 
-  bundleSchema.pre('save', (next) => {
+  bundleSchema.pre('save', function (next) {
     if (!this.isNew) return next();
     if (!this.created_at) {
       this.created_at = Date.now();

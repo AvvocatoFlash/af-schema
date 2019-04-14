@@ -41,7 +41,7 @@ module.exports = mongoose => {
      * Filter Keys
      * @return {Object} Custom Keys
      */
-    filterKeys: () => {
+    filterKeys: function () {
 
       const obj = this.toObject();
       const filtered = pick(obj, 'nome', 'codice', 'regione', 'provincia', 'sigla', 'cap');

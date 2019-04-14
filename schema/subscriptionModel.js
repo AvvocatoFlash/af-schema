@@ -23,7 +23,7 @@ module.exports = mongoose => {
     created_at: {type: Date, default: Date.now}
   });
 
-  subscriptionSchema.pre('save', (next) => {
+  subscriptionSchema.pre('save', function (next) {
 
     if (!this.isNew) return next();
 
@@ -42,7 +42,7 @@ module.exports = mongoose => {
     next();
   });
 
-  subscriptionSchema.pre('update', (next) => {
+  subscriptionSchema.pre('update', function (next) {
 
     if (this.begin_at) {
       this.begin_at = utils.momentFormat(this.begin_at);
@@ -63,7 +63,7 @@ module.exports = mongoose => {
      * Filter Keys
      * @return {Object} Custom Keys
      */
-    filterKeys: () => {
+    filterKeys: function () {
 
       const obj = this.toObject();
       const filtered = pick(obj, '_id', 'status', 'lawyer', 'amount', 'begin_at', 'end_at', 'unsubscribe_at', 'decline_reason');

@@ -73,7 +73,7 @@ module.exports = mongoose => {
     created_at: {type: Date, default: Date.now}
   });
 
-  lawyerSchema.pre('save', (next) => {
+  lawyerSchema.pre('save', function (next) {
 
     this.session_at = Date.now();
 
@@ -96,7 +96,7 @@ module.exports = mongoose => {
     next();
   });
 
-  lawyerSchema.pre('update', (next) => {
+  lawyerSchema.pre('update', function (next) {
     this.session_at = Date.now();
     if (!this.updated_at) this.updated_at = Date.now();
     next();
@@ -110,9 +110,9 @@ module.exports = mongoose => {
 
   lawyerSchema.statics = {
 
-    findSubscribers: async () => {
+    findSubscribers: async function () {
 
-      return await mongoose.model('lawyer').find({
+      return await this.model('lawyer').find({
         partner: true,
         isActive: true,
       })
@@ -121,14 +121,14 @@ module.exports = mongoose => {
         .exec();
     },
 
-    findWithPagination: async (currentPage, limit = 30, opts = {}, select = '', {province = {}, specialisation = {}}) => {
+    findWithPagination: async function (currentPage, limit = 30, opts = {}, select = '', {province = {}, specialisation = {}}) {
 
       currentPage = (currentPage && !isNaN(currentPage)) ? parseInt(currentPage) : 1;
 
       const optsParams = Object.assign({}, opts, {isActive: true});
 
-      let Lawyers = mongoose.model('lawyer').find(optsParams).select(select);
-      let Count = mongoose.model('lawyer').countDocuments(optsParams);
+      let Lawyers = this.model('lawyer').find(optsParams).select(select);
+      let Count = this.model('lawyer').countDocuments(optsParams);
 
       if (province && province._id) {
         Lawyers.where('filters.province.provincia.nome').in([province.name]);

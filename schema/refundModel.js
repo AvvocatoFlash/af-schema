@@ -23,7 +23,7 @@ module.exports = mongoose => {
     created_at: {type: Date, default: Date.now}
   });
 
-  refundSchema.pre('save', (next) => {
+  refundSchema.pre('save', function (next) {
     if (!this.isNew) return next();
     if (!this.created_at) this.created_at = Date.now();
     next();

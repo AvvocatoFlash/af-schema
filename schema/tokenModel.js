@@ -16,7 +16,7 @@ module.exports = mongoose => {
     created_at: {type: Date, default: Date.now}
   });
 
-  tokenSchema.pre('save', (next) => {
+  tokenSchema.pre('save', function (next) {
 
     if (!this.isNew) return next();
 

@@ -12,14 +12,14 @@ module.exports = mongoose => {
     created_at: {type: Date, default: Date.now}
   });
 
-  regionSchema.pre('save', (next) => {
+  regionSchema.pre('save', function (next) {
     if (!this.isNew) return next();
     if (!this.created_at) this.created_at = Date.now();
     if (!this.updated_at) this.updated_at = Date.now();
     next();
   });
 
-  regionSchema.pre('update', (next) => {
+  regionSchema.pre('update', function (next) {
     if (!this.updated_at) this.updated_at = Date.now();
     next();
   });
@@ -30,7 +30,7 @@ module.exports = mongoose => {
      * Filter Keys
      * @return {Object} Custom Keys
      */
-    filterKeys: () => {
+    filterKeys: function () {
 
       const obj = this.toObject();
       const filtered = pick(obj, 'name');

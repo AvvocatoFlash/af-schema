@@ -23,14 +23,14 @@ module.exports = mongoose => {
     created_at: {type: Date, default: Date.now}
   });
 
-  creditSchema.pre('save', (next) => {
+  creditSchema.pre('save', function (next) {
     if (!this.isNew) return next()
     if (!this.created_at) this.created_at = Date.now();
     if (!this.updated_at) this.updated_at = Date.now();
     next();
   });
 
-  creditSchema.pre('update', (next) => {
+  creditSchema.pre('update', function (next) {
     if (!this.updated_at) this.updated_at = Date.now();
     next();
   });

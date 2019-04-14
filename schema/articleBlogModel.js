@@ -37,14 +37,14 @@ module.exports = mongoose => {
     created_at: {type: Date, default: Date.now}
   });
 
-  articleSchema.pre('save', (next) => {
+  articleSchema.pre('save', function (next) {
     if (!this.isNew) return next();
     if (!this.created_at) this.created_at = Date.now();
     if (!this.updated_at) this.updated_at = Date.now();
     next();
   });
 
-  articleSchema.pre('update', (next) => {
+  articleSchema.pre('update', function (next) {
     if (!this.updated_at) this.updated_at = Date.now();
     next();
   });
@@ -52,13 +52,13 @@ module.exports = mongoose => {
 
   articleSchema.statics = {
 
-    findWithPagination: async (currentPage, limit = 30, opts = {}, select = '', selectTags = '', selectSpecialisations = '', selectLawyerSpecialisations = '', selectCategory = '', selectSubCategory = '', selectAuthor = '') => {
+    findWithPagination: async function (currentPage, limit = 30, opts = {}, select = '', selectTags = '', selectSpecialisations = '', selectLawyerSpecialisations = '', selectCategory = '', selectSubCategory = '', selectAuthor = '') {
 
       currentPage = (currentPage && !isNaN(currentPage)) ? parseInt(currentPage) : 1;
 
       const optsParams = Object.assign({}, opts);
 
-      let articles = mongoose.model('article')
+      let articles = this.model('article')
         .find(optsParams)
         .select(select)
         .populate('tags', selectTags)
@@ -69,20 +69,20 @@ module.exports = mongoose => {
         .populate('author_id', selectAuthor)
         .sort({'created_at': -1});
 
-      let Count = mongoose.model('article').countDocuments(optsParams);
+      let count = this.model('article').countDocuments(optsParams);
 
       articles.limit(limit);
       articles.skip(limit * (currentPage - 1));
       articles.sort({'created_at': -1});
 
       articles = await articles.lean().exec();
-      Count = await Count.exec();
+      count = await count.exec();
 
       return {
         articles,
         currentPage,
-        totRecords: Count,
-        totPages: Math.ceil(Count / limit)
+        totRecords: count,
+        totPages: Math.ceil(count / limit)
       };
 
     }

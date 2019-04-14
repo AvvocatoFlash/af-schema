@@ -15,13 +15,13 @@ module.exports = mongoose => {
     created_at: {type: Date, default: Date.now}
   });
 
-  contactSchema.pre('save', (next) => {
+  contactSchema.pre('save', function (next) {
     if (!this.created_at) this.created_at = Date.now();
     if (!this.updated_at) this.updated_at = Date.now();
     next();
   });
 
-  contactSchema.pre('update', (next) => {
+  contactSchema.pre('update', function (next) {
     if (!this.updated_at) this.updated_at = Date.now();
     next();
   });

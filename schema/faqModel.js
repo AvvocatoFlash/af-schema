@@ -14,14 +14,14 @@ module.exports = mongoose => {
     created_at: {type: Date, default: Date.now}
   });
 
-  faqSchema.pre('save', (next) => {
+  faqSchema.pre('save', function (next) {
     if (!this.isNew) return next();
     if (!this.created_at) this.created_at = Date.now();
     if (!this.updated_at) this.updated_at = Date.now();
     next();
   });
 
-  faqSchema.pre('update', (next) => {
+  faqSchema.pre('update', function (next) {
     if (!this.updated_at) this.updated_at = Date.now();
     next();
   });
@@ -32,7 +32,7 @@ module.exports = mongoose => {
      * Filter Keys
      * @return {Object} Custom Keys
      */
-    filterKeys: () => {
+    filterKeys: function () {
 
       const obj = this.toObject();
       const filtered = pick(obj, 'question', 'answer', 'position');

@@ -30,14 +30,14 @@ module.exports = mongoose => {
     created_at: {type: Date, default: Date.now}
   });
 
-  reportCaseSchema.pre('save', (next) => {
+  reportCaseSchema.pre('save', function (next) {
     if (!this.isNew) return next();
     if (!this.created_at) this.created_at = Date.now();
     if (!this.updated_at) this.updated_at = Date.now();
     next();
   });
 
-  reportCaseSchema.pre('update', (next) => {
+  reportCaseSchema.pre('update', function (next) {
     if (!this.updated_at) this.updated_at = Date.now();
     next();
   });

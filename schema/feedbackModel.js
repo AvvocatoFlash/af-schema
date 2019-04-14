@@ -19,7 +19,7 @@ module.exports = mongoose => {
     created_at: {type: Date, default: Date.now}
   });
 
-  feedbackSchema.pre('save', (next) => {
+  feedbackSchema.pre('save', function (next) {
     if (!this.isNew) return next();
     if (!this.created_at) this.created_at = Date.now();
     next();

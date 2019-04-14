@@ -43,7 +43,7 @@ module.exports = mongoose => {
     created_at: {type: Date, default: Date.now}
   });
 
-  userSchema.pre('save', (next) => {
+  userSchema.pre('save', function (next) {
 
     this.session_at = Date.now();
 
@@ -67,7 +67,7 @@ module.exports = mongoose => {
   });
 
 
-  userSchema.pre('update', (next) => {
+  userSchema.pre('update', function (next) {
 
     this.session_at = Date.now();
 
@@ -84,7 +84,7 @@ module.exports = mongoose => {
      * Generate Salt Password
      * @returns {string} Salt
      */
-    generateHash: (password) => {
+    generateHash: function (password) {
       return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
     },
 
@@ -93,7 +93,7 @@ module.exports = mongoose => {
      * @param {String} password
      * @return {Boolean} Valid Password
      */
-    validPassword: (password) => {
+    validPassword: function (password) {
       return bcrypt.compareSync(password, this.password);
     },
 
@@ -101,7 +101,7 @@ module.exports = mongoose => {
      * Filter Keys
      * @return {Object} Custom Keys
      */
-    filterKeys: () => {
+    filterKeys: function () {
 
       const obj = this.toObject();
       const filtered = pick(obj, '_id', 'email', 'name', 'surname', 'image', 'isVerify', 'isActive', 'mobile', 'comune', 'token', 'type', 'created_at');

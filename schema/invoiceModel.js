@@ -71,6 +71,33 @@ module.exports = mongoose => {
     next();
   });
 
+  invoiceSchema.pre('find', function (next) {
+    if (this.subscriptionFrom) {
+      this.subscriptionFrom = utils.momentFormat(this.subscriptionFrom);
+    }
+    if (this.subscriptionTo) {
+      this.subscriptionTo = utils.momentFormat(this.subscriptionTo);
+    }
+    if (this.lastCharge) {
+      this.lastCharge = utils.momentFormat(this.lastCharge);
+    }
+    next();
+  });
+
+
+  invoiceSchema.pre('findOne', function (next) {
+    if (this.subscriptionFrom) {
+      this.subscriptionFrom = utils.momentFormat(this.subscriptionFrom);
+    }
+    if (this.subscriptionTo) {
+      this.subscriptionTo = utils.momentFormat(this.subscriptionTo);
+    }
+    if (this.lastCharge) {
+      this.lastCharge = utils.momentFormat(this.lastCharge);
+    }
+    next();
+  });
+
   invoiceSchema.statics = {
 
     findWithPagination: async function (currentPage, limit = 30, opts = {}, select = '') {

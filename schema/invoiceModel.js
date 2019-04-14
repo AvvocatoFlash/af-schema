@@ -185,7 +185,7 @@ module.exports = mongoose => {
 
     utcData: function () {
 
-      const obj = this.toObject();
+      const obj = this;
 
       if (obj.subscriptionFrom) {
         obj.subscriptionFrom = utils.momentFormat(obj.subscriptionFrom);

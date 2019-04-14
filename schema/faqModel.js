@@ -1,45 +1,47 @@
 const pick = require('lodash.pick');
 
-module.exports = (mongoose) => {
+module.exports = mongoose => {
 
-    mongoose.plugin(schema => { schema.options.usePushEach = true });
+  mongoose.plugin(schema => {
+    schema.options.usePushEach = true
+  });
 
-    let faqSchema = mongoose.Schema({
-        question:          { type: String },
-        answer:          { type: String },
-        position:      { type: Number },
-        updated_at:    { type: Date, default: Date.now },
-        created_at:    { type: Date, default: Date.now }
-    });
+  let faqSchema = mongoose.Schema({
+    question: {type: String},
+    answer: {type: String},
+    position: {type: Number},
+    updated_at: {type: Date, default: Date.now},
+    created_at: {type: Date, default: Date.now}
+  });
 
-    faqSchema.pre('save', function(next) {
-        if (!this.isNew) return next()
-        if(!this.created_at) this.created_at = Date.now();
-        if(!this.updated_at) this.updated_at = Date.now();
-        next();
-    });
+  faqSchema.pre('save', (next) => {
+    if (!this.isNew) return next();
+    if (!this.created_at) this.created_at = Date.now();
+    if (!this.updated_at) this.updated_at = Date.now();
+    next();
+  });
 
-    faqSchema.pre('update', function(next) {
-        if(!this.updated_at) this.updated_at = Date.now();
-        next();
-    });
+  faqSchema.pre('update', (next) => {
+    if (!this.updated_at) this.updated_at = Date.now();
+    next();
+  });
 
-    faqSchema.methods = {
+  faqSchema.methods = {
 
-        /**
-         * Filter Keys
-         * @return {Object} Custom Keys
-         */
-        filterKeys: function() {
+    /**
+     * Filter Keys
+     * @return {Object} Custom Keys
+     */
+    filterKeys: () => {
 
-            const obj = this.toObject();
-            const filtered = pick(obj, 'question', 'answer', 'position');
+      const obj = this.toObject();
+      const filtered = pick(obj, 'question', 'answer', 'position');
 
-            return filtered;
-        }
-    };
+      return filtered;
+    }
+  };
 
-    return mongoose.model('faq', faqSchema);
+  return mongoose.model('faq', faqSchema);
 
 };
 

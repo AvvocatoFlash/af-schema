@@ -1,21 +1,20 @@
-const bcrypt = require('bcrypt-nodejs');
-const pick = require('lodash.pick');
+module.exports = mongoose => {
 
-module.exports = (mongoose) => {
+  mongoose.plugin(schema => {
+    schema.options.usePushEach = true
+  });
 
-    mongoose.plugin(schema => { schema.options.usePushEach = true });
+  let twilioCallbackSchema = mongoose.Schema({
+    json: {type: String},
+    response: {type: Object},
+    created_at: {type: Date, default: Date.now}
+  });
 
-    let twilioCallbackSchema = mongoose.Schema({
-        json:           { type: String },
-        response:      { type: Object },
-        created_at:    { type: Date, default: Date.now }
-    });
+  twilioCallbackSchema.pre('save', (next) => {
+    if (!this.isNew) return next();
+    if (!this.created_at) this.created_at = Date.now();
+    next();
+  });
 
-    twilioCallbackSchema.pre('save', function(next) {
-        if (!this.isNew) return next();
-        if(!this.created_at) this.created_at = Date.now();
-        next();
-    });
-
-    return  mongoose.model('twilioCallback', twilioCallbackSchema);
+  return mongoose.model('twilioCallback', twilioCallbackSchema);
 };

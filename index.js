@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-module.exports = function(mongoose) {
+module.exports = (mongoose) => {
 
     let Schemas = {};
 

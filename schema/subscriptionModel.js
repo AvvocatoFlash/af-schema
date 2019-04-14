@@ -1,9 +1,8 @@
 require('./lawyerModel');
 const pick = require('lodash.pick');
-const moment = require('moment');
 const utils = require('../utils');
 
-module.exports = (mongoose) => {
+module.exports = mongoose => {
 
   mongoose.plugin(schema => {
     schema.options.usePushEach = true
@@ -29,11 +28,11 @@ module.exports = (mongoose) => {
     if (!this.isNew) return next();
 
     if (this.begin_at) {
-        this.begin_at = utils.momentFormat(this.begin_at);
+      this.begin_at = utils.momentFormat(this.begin_at);
     }
 
     if (this.end_at) {
-        this.end_at = utils.momentFormat(this.end_at);
+      this.end_at = utils.momentFormat(this.end_at);
     }
 
     if (!this.created_at) {
@@ -64,7 +63,7 @@ module.exports = (mongoose) => {
      * Filter Keys
      * @return {Object} Custom Keys
      */
-    filterKeys: function () {
+    filterKeys: () => {
 
       const obj = this.toObject();
       const filtered = pick(obj, '_id', 'status', 'lawyer', 'amount', 'begin_at', 'end_at', 'unsubscribe_at', 'decline_reason');

@@ -1,8 +1,6 @@
 require('./userModel');
 
-const pick = require('lodash.pick');
-
-module.exports = (mongoose) => {
+module.exports = mongoose => {
 
     mongoose.plugin(schema => { schema.options.usePushEach = true });
 
@@ -14,14 +12,14 @@ module.exports = (mongoose) => {
         created_at:    { type: Date, default: Date.now }
     });
 
-    reviewSchema.pre('save', function(next) {
-        if (!this.isNew) return next()
+    reviewSchema.pre('save', (next) => {
+        if (!this.isNew) return next();
         if(!this.created_at) this.created_at = Date.now();
         if(!this.updated_at) this.updated_at = Date.now();
         next();
     });
 
-    reviewSchema.pre('update', function(next) {
+    reviewSchema.pre('update', (next) => {
         if(!this.updated_at) this.updated_at = Date.now();
         next();
     });

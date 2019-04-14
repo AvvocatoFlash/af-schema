@@ -105,6 +105,15 @@ module.exports = mongoose => {
           "$lte": moment.isMoment(to) ? to.endOf('day') : moment(to).endOf('day'),
         }
       }).exec();
+    },
+
+    findAllPartnerCases: async function () {
+
+      return await this.model('case').find({
+        view: 2,
+        partnerStatus: true,
+      }).exec();
+
     }
 
   };

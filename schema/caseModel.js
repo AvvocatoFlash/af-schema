@@ -112,7 +112,9 @@ module.exports = mongoose => {
       return await this.model('case').find({
         view: 2,
         partnerStatus: true,
-      }).exec();
+      })
+        .populate('partners', '_id name surname email mobile')
+        .exec();
 
     }
 

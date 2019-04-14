@@ -84,8 +84,33 @@ module.exports = mongoose => {
     next();
   });
 
-
   invoiceSchema.pre('findOne', function (next) {
+    if (this.subscriptionFrom) {
+      this.subscriptionFrom = utils.momentFormat(this.subscriptionFrom);
+    }
+    if (this.subscriptionTo) {
+      this.subscriptionTo = utils.momentFormat(this.subscriptionTo);
+    }
+    if (this.lastCharge) {
+      this.lastCharge = utils.momentFormat(this.lastCharge);
+    }
+    next();
+  });
+
+  invoiceSchema.pre('findWithPagination', function (next) {
+    if (this.subscriptionFrom) {
+      this.subscriptionFrom = utils.momentFormat(this.subscriptionFrom);
+    }
+    if (this.subscriptionTo) {
+      this.subscriptionTo = utils.momentFormat(this.subscriptionTo);
+    }
+    if (this.lastCharge) {
+      this.lastCharge = utils.momentFormat(this.lastCharge);
+    }
+    next();
+  });
+
+  invoiceSchema.pre('subscriptionHistory', function (next) {
     if (this.subscriptionFrom) {
       this.subscriptionFrom = utils.momentFormat(this.subscriptionFrom);
     }

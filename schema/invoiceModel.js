@@ -97,32 +97,6 @@ module.exports = mongoose => {
     next();
   });
 
-  invoiceSchema.pre('findWithPagination', function (next) {
-    if (this.subscriptionFrom) {
-      this.subscriptionFrom = utils.momentFormat(this.subscriptionFrom);
-    }
-    if (this.subscriptionTo) {
-      this.subscriptionTo = utils.momentFormat(this.subscriptionTo);
-    }
-    if (this.lastCharge) {
-      this.lastCharge = utils.momentFormat(this.lastCharge);
-    }
-    next();
-  });
-
-  invoiceSchema.pre('subscriptionHistory', function (next) {
-    if (this.subscriptionFrom) {
-      this.subscriptionFrom = utils.momentFormat(this.subscriptionFrom);
-    }
-    if (this.subscriptionTo) {
-      this.subscriptionTo = utils.momentFormat(this.subscriptionTo);
-    }
-    if (this.lastCharge) {
-      this.lastCharge = utils.momentFormat(this.lastCharge);
-    }
-    next();
-  });
-
   invoiceSchema.statics = {
 
     findWithPagination: async function (currentPage, limit = 30, opts = {}, select = '') {
@@ -146,7 +120,7 @@ module.exports = mongoose => {
       Count = await Count.exec();
 
       return {
-        invoices,
+        invoices: (invoices && invoices.length > 0) ? invoices.map( i => i.utcData() ) : [],
         currentPage,
         totRecords: Count,
         totPages: Math.ceil(Count / limit)
@@ -160,10 +134,12 @@ module.exports = mongoose => {
         return;
       }
 
-      return await this.model('invoice').find({
+      const invoices = await this.model('invoice').find({
         subscription: true,
         ref_lawyer: lawyerId,
       }).sort('-subscriptionFrom').exec();
+
+      return (invoices && invoices.length > 0) ? invoices.map( i => i.utcData() ) : [];
     }
 
   };
@@ -205,7 +181,25 @@ module.exports = mongoose => {
       let filtered = pick(obj, '_id', 'shortId', 'subscriptionFrom', 'subscriptionTo', 'paid', 'chargeAttempt', 'ref_case', 'total', 'lastCharge');
 
       return filtered;
+    },
+
+    utcData: function () {
+
+      const obj = this.toObject();
+
+      if (obj.subscriptionFrom) {
+        obj.subscriptionFrom = utils.momentFormat(obj.subscriptionFrom);
+      }
+      if (this.subscriptionTo) {
+        obj.subscriptionTo = utils.momentFormat(obj.subscriptionTo);
+      }
+      if (obj.lastCharge) {
+        obj.lastCharge = utils.momentFormat(obj.lastCharge);
+      }
+
+      return obj;
     }
+
   };
 
   return mongoose.model('invoice', invoiceSchema);

@@ -1,5 +1,6 @@
 require('./lawyerModel');
 const pick = require('lodash.pick');
+const moment = require('moment');
 const utils = require('../utils');
 
 module.exports = mongoose => {
@@ -67,6 +68,19 @@ module.exports = mongoose => {
 
       const obj = this.toObject();
       const filtered = pick(obj, '_id', 'status', 'lawyer', 'amount', 'begin_at', 'end_at', 'unsubscribe_at', 'decline_reason');
+
+      if(filtered.begin_at) {
+        filtered.begin_at = moment(filtered.begin_at).toDate()
+      }
+
+      if(filtered.unsubscribe_at) {
+        filtered.unsubscribe_at = moment(filtered.unsubscribe_at).toDate()
+      }
+
+      if(filtered.decline_reason) {
+        filtered.decline_reason = moment(filtered.decline_reason).toDate()
+      }
+
 
       return filtered;
     },

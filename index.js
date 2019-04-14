@@ -1,5 +1,7 @@
 const fs = require("fs");
 
+process.env.TZ = 'Europe/Greenwich';
+
 module.exports = (mongoose) => {
 
     let Schemas = {};

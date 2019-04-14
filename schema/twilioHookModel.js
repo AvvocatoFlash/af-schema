@@ -1,5 +1,5 @@
 
-module.exports = (mongoose) => {
+module.exports = mongoose => {
 
   mongoose.plugin(schema => {
     schema.options.usePushEach = true

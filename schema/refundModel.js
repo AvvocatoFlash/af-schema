@@ -2,7 +2,7 @@ require('./caseModel');
 require('./lawyerModel');
 require('./adminModel');
 
-module.exports = (mongoose) => {
+module.exports = mongoose => {
 
   mongoose.plugin(schema => {
     schema.options.usePushEach = true

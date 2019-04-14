@@ -1,7 +1,5 @@
 require('./userModel');
 
-const pick = require('lodash.pick');
-
 module.exports = mongoose => {
 
   mongoose.plugin(schema => {

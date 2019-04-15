@@ -104,7 +104,10 @@ module.exports = mongoose => {
           "$gte": moment.isMoment(from) ? from.startOf('day') : moment(from).startOf('day'),
           "$lte": moment.isMoment(to) ? to.endOf('day') : moment(to).endOf('day'),
         }
-      }).exec();
+      })
+        .populate('specialisations', 'name')
+        .populate('comune', 'nome provincia')
+        .exec();
     },
 
     findAllPartnerCases: async function () {

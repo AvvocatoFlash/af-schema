@@ -137,7 +137,7 @@ module.exports = mongoose => {
     customerFilterKeys: function () {
 
       const obj = this.toObject();
-      const filtered = pick(obj, '_id', 'fullname', 'declined', 'description', 'comune', 'created_at', 'sms_verify', 'buy', 'selected', 'title', 'specialisations', 'user', 'mobile', 'email', 'time', 'followup', 'followupContact', 'status');
+      const filtered = pick(obj, '_id', 'fullname', 'declined', 'description', 'comune', 'posted_at', 'created_at', 'sms_verify', 'buy', 'selected', 'title', 'specialisations', 'user', 'mobile', 'email', 'time', 'followup', 'followupContact', 'status');
 
       return filtered;
     },

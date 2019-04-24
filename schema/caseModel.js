@@ -47,6 +47,8 @@ module.exports = mongoose => {
     selected: {type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer'},
     buy: [buySchema],
     note: {type: String},
+    note_lawyer: {type: String},
+    note_client: {type: String},
     urgent: {type: Boolean, default: false},
     approved: {type: Boolean, default: false},
     declined: {type: Boolean, default: false},

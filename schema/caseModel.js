@@ -131,6 +131,18 @@ module.exports = mongoose => {
      * Filter Keys
      * @return {Object} Custom Keys
      */
+    subscriptionFilterKeys: function () {
+
+      const obj = this.toObject();
+      const filtered = pick(obj, '_id', 'fullname', 'declined', 'note', 'note_lawyer', 'note_client', 'description', 'comune', 'posted_at', 'created_at', 'sms_verify', 'buy', 'selected', 'title', 'specialisations', 'user', 'mobile', 'email', 'time', 'followup', 'followupContact', 'status');
+
+      return filtered;
+    },
+
+    /**
+     * Filter Keys
+     * @return {Object} Custom Keys
+     */
     minFilterKeys: function () {
 
       const obj = this.toObject();

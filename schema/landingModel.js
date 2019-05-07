@@ -14,6 +14,7 @@ module.exports = mongoose => {
     subtitle: {type: String},
     permalink: {type: String, require: true, unique: true},
     position: {type: Number},
+    template: {type: Number},
     content: {type: String},
     isCategory: {type: Boolean, default: false},
     label: {type: String},

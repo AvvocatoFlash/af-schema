@@ -1,3 +1,6 @@
+const assert = require('assert');
+const speakeasy = require('speakeasy');
+
 require('./lawyerModel');
 
 const ENUM_TYPE = [
@@ -36,6 +39,47 @@ module.exports = mongoose => {
 
     next();
   });
+
+  tokenSchema.statics = {
+
+    createToken: async function (user, value, type, extraValue = null) {
+
+      assert(user && value && type, 'missing parameters');
+
+      const token = await new this.model('token')({
+        value,
+        type,
+        lawyer: user.id,
+        extraValue,
+      }).save();
+
+      return token;
+
+    },
+
+    createForLogin: async function (user) {
+
+      const secretKey = speakeasy.generateSecret({length: 20});
+
+      return this.createToken(user, secretKey.base32, 'AUTH');
+
+    },
+
+    createForResetPassword: async function (user) {
+
+      const token = await this.model('token').findOne({'lawyer': user.id, type: 'RESET_PASSWORD'}).exec();
+
+      if(token) {
+        await token.remove();
+      }
+
+      const secretKey = speakeasy.generateSecret({length: 20});
+
+      return this.createToken(user, secretKey.base32, 'RESET_PASSWORD');
+
+    }
+
+  };
 
   return mongoose.model('token', tokenSchema);
 

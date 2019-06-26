@@ -12,7 +12,6 @@ module.exports = mongoose => {
     position: {type: Number},
 
     name_blog: {type: String},
-    permalink_blog: {type: String, sparse: true, unique: true, trim: true},
     position_blog: {type: Number},
 
     isActive: {type: Boolean, default: true},

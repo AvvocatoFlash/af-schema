@@ -15,10 +15,6 @@ module.exports = mongoose => {
     permalink_blog: {type: String, sparse: true, unique: true, trim: true},
     position_blog: {type: Number},
 
-    name_spec: {type: String},
-    permalink_spec: {type: String, sparse: true, unique: true, trim: true},
-    position_spec: {type: Number},
-
     isActive: {type: Boolean, default: true},
     created_at: {type: Date, default: Date.now}
   });

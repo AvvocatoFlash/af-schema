@@ -9,11 +9,16 @@ module.exports = mongoose => {
   let specialisationSchema = mongoose.Schema({
     name: {type: String},
     permalink: {type: String, sparse: true, unique: true, trim: true},
+    position: {type: Number},
+
     name_blog: {type: String},
     permalink_blog: {type: String, sparse: true, unique: true, trim: true},
+    position_blog: {type: Number},
+
     name_spec: {type: String},
     permalink_spec: {type: String, sparse: true, unique: true, trim: true},
-    position: {type: Number},
+    position_spec: {type: Number},
+
     isActive: {type: Boolean, default: true},
     created_at: {type: Date, default: Date.now}
   });

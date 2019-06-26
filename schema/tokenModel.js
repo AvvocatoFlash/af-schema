@@ -1,5 +1,14 @@
 require('./lawyerModel');
 
+const ENUM_TYPE = [
+  'RESET_PASSWORD',
+  'VERIFY_EMAIL',
+  'AUTH',
+  'TWO_FACTOR',
+  'TWO_FACTOR_EMAIL',
+  'CHANGE_EMAIL',
+];
+
 module.exports = mongoose => {
 
   mongoose.plugin(schema => {
@@ -8,11 +17,12 @@ module.exports = mongoose => {
 
   let tokenSchema = mongoose.Schema({
     value: {type: String, require: true},
+    extraValue: {type: Object, default: {}},
     lawyer: {type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer'},
-    type: {type: String},
-    start: {type: Date},
-    expire: {type: Date},
-    updated_at: {type: Date, default: Date.now},
+    type: {
+      type: String,
+      enum : ENUM_TYPE,
+    },
     created_at: {type: Date, default: Date.now}
   });
 

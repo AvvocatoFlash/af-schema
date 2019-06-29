@@ -24,6 +24,8 @@ module.exports = mongoose => {
     credits: {type: Number, default: 0},
     cancel: {type: Boolean},
     total: {type: String},
+    unitAmount: {type: String},
+    vat: {type: String},
     method: {type: String}, //card or bank-account
     stripe: {type: Object},
     log: {type: Object},

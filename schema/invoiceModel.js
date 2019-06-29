@@ -163,7 +163,7 @@ module.exports = mongoose => {
     filterKeys: function () {
 
       const obj = this.toObject();
-      let filtered = pick(obj, '_id', 'shortId', 'ref_lawyer', 'billing', 'cancel', 'credits', 'total', 'stripe', 'log', 'az_old', 'lastCharge', 'created_at');
+      let filtered = pick(obj, '_id', 'shortId', 'ref_lawyer', 'billing', 'cancel', 'credits', 'total', 'unitAmount', 'vat', 'stripe', 'log', 'az_old', 'lastCharge', 'created_at');
 
       if (filtered && filtered.stripe) {
         delete filtered.stripe.paymentObj;
@@ -180,7 +180,7 @@ module.exports = mongoose => {
     filterInvoiceKeys: function () {
 
       const obj = this.toObject();
-      let filtered = pick(obj, '_id', 'shortId', 'subscription', 'subscriptionFrom', 'subscriptionTo', 'paid', 'chargeAttempt', 'ref_case', 'total', 'priceCase', 'lastCharge', 'billing', 'cancel', 'credits', 'az_old', 'created_at');
+      let filtered = pick(obj, '_id', 'shortId', 'subscription', 'subscriptionFrom', 'subscriptionTo', 'paid', 'chargeAttempt', 'ref_case', 'total', 'unitAmount', 'vat', 'priceCase', 'lastCharge', 'billing', 'cancel', 'credits', 'az_old', 'created_at');
 
       return filtered;
     },
@@ -188,7 +188,7 @@ module.exports = mongoose => {
     filterSubscriptionKeys: function () {
 
       const obj = this.toObject();
-      let filtered = pick(obj, '_id', 'shortId', 'subscriptionFrom', 'subscriptionTo', 'paid', 'chargeAttempt', 'ref_case', 'total', 'lastCharge');
+      let filtered = pick(obj, '_id', 'shortId', 'subscriptionFrom', 'subscriptionTo', 'paid', 'chargeAttempt', 'ref_case', 'total', 'unitAmount', 'vat', 'lastCharge');
 
       return filtered;
     },

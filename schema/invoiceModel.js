@@ -11,6 +11,7 @@ module.exports = mongoose => {
   });
 
   let invoiceSchema = mongoose.Schema({
+    progressiveNumber: {type: Number},
     subscription: {type: Boolean},
     subscriptionFrom: {type: String},
     subscriptionTo: {type: String},

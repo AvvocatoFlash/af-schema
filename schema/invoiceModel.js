@@ -99,6 +99,14 @@ module.exports = mongoose => {
 
   invoiceSchema.statics = {
 
+    countByLawyer: async function (lawyerId) {
+
+      let count = this.model('invoice').countDocuments({'ref_lawyer': lawyerId});
+
+      return count;
+
+    },
+
     findWithPagination: async function (currentPage, limit = 30, opts = {}, select = '') {
 
       currentPage = (currentPage && !isNaN(currentPage)) ? parseInt(currentPage) : 1;

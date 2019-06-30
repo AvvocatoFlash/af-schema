@@ -11,7 +11,7 @@ module.exports = mongoose => {
   });
 
   let invoiceSchema = mongoose.Schema({
-    progressiveNumber: {type: Number},
+    einvoiceId: {type: Number}, // id fattura elettronica
     subscription: {type: Boolean},
     subscriptionFrom: {type: String},
     subscriptionTo: {type: String},

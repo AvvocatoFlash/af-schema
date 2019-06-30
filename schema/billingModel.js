@@ -18,6 +18,7 @@ module.exports = mongoose => {
     postcode: {type: String},
     city: {type: String},
     country: {type: String},
+    province_sigle: {type: String},
     updated_at: {type: Date, default: Date.now},
     created_at: {type: Date, default: Date.now}
   });

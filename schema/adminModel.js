@@ -15,7 +15,7 @@ module.exports = mongoose => {
     password: {type: String, require: true},
     token: {type: String, require: true, unique: true},
     isActive: {type: Boolean, default: false},
-    type: {type: String, enum: ['super_root', 'root', 'admin', 'moderator']},
+    type: {type: String, enum: ['super_root', 'root', 'admin', 'moderator', 'marketing']},
     latest_login: {type: Date, default: Date.now},
     session_at: {type: Date, default: Date.now},
     updated_at: {type: Date, default: Date.now},

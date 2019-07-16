@@ -2,11 +2,7 @@ require('./adminModel');
 require('./lawyerModel');
 require('./categoryBlogModel');
 require('./subCategoryBlogModel');
-require('./specialisationBlogModel');
 require('./tagBlogModel');
-require('./specialisationsModel');
-
-const pick = require('lodash.pick');
 
 module.exports = mongoose => {
 
@@ -20,8 +16,6 @@ module.exports = mongoose => {
     author_id: {type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer'},
     category: [{type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'categoryBlog'}],
     subCategory: [{type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'subCategoryBlog'}],
-    specialisations: [{type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'spiecializzazioneBlog'}],
-    layersSpecialisations: [{type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'spiecializzazione'}],
     tags: [{type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'tagBlog'}],
     metaTitle: {type: String},
     isLawyerSignup: {type: Boolean, default: false},
@@ -52,7 +46,7 @@ module.exports = mongoose => {
 
   articleSchema.statics = {
 
-    findWithPagination: async function (currentPage, limit = 30, opts = {}, select = '', selectTags = '', selectSpecialisations = '', selectLawyerSpecialisations = '', selectCategory = '', selectSubCategory = '', selectAuthor = '') {
+    findWithPagination: async function (currentPage, limit = 30, opts = {}, select = '', selectTags = '', selectCategory = '', selectSubCategory = '', selectAuthor = '') {
 
       currentPage = (currentPage && !isNaN(currentPage)) ? parseInt(currentPage) : 1;
 
@@ -62,8 +56,6 @@ module.exports = mongoose => {
         .find(optsParams)
         .select(select)
         .populate('tags', selectTags)
-        .populate('specialisations', selectSpecialisations)
-        .populate('layersSpecialisations', selectLawyerSpecialisations)
         .populate('category', selectCategory)
         .populate('subCategory', selectSubCategory)
         .populate('author_id', selectAuthor)

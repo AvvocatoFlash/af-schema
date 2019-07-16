@@ -77,11 +77,6 @@ module.exports = mongoose => {
         filtered.unsubscribe_at = moment(filtered.unsubscribe_at).toDate()
       }
 
-      if(filtered.decline_reason) {
-        filtered.decline_reason = moment(filtered.decline_reason).toDate()
-      }
-
-
       return filtered;
     },
 

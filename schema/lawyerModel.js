@@ -127,7 +127,7 @@ module.exports = mongoose => {
 
       const optsParams = Object.assign({}, opts, {
         isActive: true,
-        $where: "this.specialisations.length === 1",
+        "specialisations.0": { "$exists": true },
         'image.secure_url': {$exists: true}
       });
 

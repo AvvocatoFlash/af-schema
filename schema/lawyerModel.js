@@ -125,7 +125,11 @@ module.exports = mongoose => {
 
       currentPage = (currentPage && !isNaN(currentPage)) ? parseInt(currentPage) : 1;
 
-      const optsParams = Object.assign({}, opts, {isActive: true});
+      const optsParams = Object.assign({}, opts, {
+        isActive: true,
+        specialisations: {$gt: 0},
+        'image.secure_url': {$exist: true}
+      });
 
       let Lawyers = this.model('lawyer').find(optsParams).select(select);
       let Count = this.model('lawyer').countDocuments(optsParams);

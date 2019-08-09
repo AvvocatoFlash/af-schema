@@ -128,7 +128,7 @@ module.exports = mongoose => {
       const optsParams = Object.assign({}, opts, {
         isActive: true,
         $where: "this.specialisations.length === 1",
-        'image.secure_url': {$exist: true}
+        'image.secure_url': {$exists: true}
       });
 
       let Lawyers = this.model('lawyer').find(optsParams).select(select);

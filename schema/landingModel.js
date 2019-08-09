@@ -23,6 +23,7 @@ module.exports = mongoose => {
     iconLabel: {type: String},
     isHome: {type: Boolean, default: false},
     isSEO: {type: Boolean, default: false},
+    isDuplicate: {type: Boolean, default: false},
     isProvince: {type: Boolean, default: false},
     isActive: {type: Boolean, default: true},
     testimonials: {type: Array, default: []},

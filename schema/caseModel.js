@@ -55,6 +55,7 @@ module.exports = mongoose => {
     reminder: {type: Boolean, default: false},
     reminderData: {type: Date},
     archived: {type: Boolean},
+    gaClientId: {type: String},
     removed: [{
       lawyer_id: {type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer'},
       date: {type: Date}

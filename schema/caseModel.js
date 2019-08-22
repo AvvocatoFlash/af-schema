@@ -135,7 +135,7 @@ module.exports = mongoose => {
     subscriptionFilterKeys: function () {
 
       const obj = this.toObject();
-      const filtered = pick(obj, '_id', 'fullname', 'declined', 'note', 'note_lawyer', 'note_client', 'description', 'comune', 'posted_at', 'created_at', 'sms_verify', 'buy', 'selected', 'title', 'specialisations', 'user', 'mobile', 'email', 'time', 'followup', 'followupContact', 'status');
+      const filtered = pick(obj, '_id', 'fullname', 'declined', 'note', 'note_lawyer', 'note_client', 'description', 'comune', 'posted_at', 'created_at', 'sms_verify', 'buy', 'selected', 'title', 'specialisations', 'user', 'mobile', 'email', 'time', 'followup', 'followupContact', 'status', 'request_uri', 'gaClientId');
 
       return filtered;
     },
@@ -147,7 +147,7 @@ module.exports = mongoose => {
     minFilterKeys: function () {
 
       const obj = this.toObject();
-      const filtered = pick(obj, '_id', 'comune', 'description', 'time', 'mobile', 'email', 'view', 'sms_verify', 'created_at');
+      const filtered = pick(obj, '_id', 'comune', 'description', 'time', 'mobile', 'email', 'view', 'sms_verify', 'created_at', 'request_uri', 'gaClientId');
 
       return filtered;
     },
@@ -155,7 +155,7 @@ module.exports = mongoose => {
     customerFilterKeys: function () {
 
       const obj = this.toObject();
-      const filtered = pick(obj, '_id', 'fullname', 'declined', 'description', 'comune', 'posted_at', 'created_at', 'sms_verify', 'buy', 'selected', 'title', 'specialisations', 'user', 'mobile', 'email', 'time', 'followup', 'followupContact', 'status');
+      const filtered = pick(obj, '_id', 'fullname', 'declined', 'description', 'comune', 'posted_at', 'created_at', 'sms_verify', 'buy', 'selected', 'title', 'specialisations', 'user', 'mobile', 'email', 'time', 'followup', 'followupContact', 'status', 'request_uri', 'gaClientId');
 
       return filtered;
     },

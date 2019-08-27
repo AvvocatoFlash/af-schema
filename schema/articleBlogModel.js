@@ -63,8 +63,8 @@ module.exports = mongoose => {
 
       let count = this.model('article').countDocuments(optsParams);
 
-      articles.limit(limit);
-      articles.skip(limit * (currentPage - 1));
+      articles.limit(Number(limit));
+      articles.skip(Number(limit) * (currentPage - 1));
       articles.sort({'created_at': -1});
 
       articles = await articles.lean().exec();
@@ -74,7 +74,7 @@ module.exports = mongoose => {
         articles,
         currentPage,
         totRecords: count,
-        totPages: Math.ceil(count / limit)
+        totPages: Math.ceil(count / Number(limit))
       };
 
     }

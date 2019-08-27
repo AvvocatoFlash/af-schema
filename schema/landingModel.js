@@ -45,6 +45,37 @@ module.exports = mongoose => {
     next();
   });
 
+  landingSchema.statics = {
+
+    findWithPagination: async function (currentPage, limit = 30, opts = {}, select = '') {
+
+      currentPage = (currentPage && !isNaN(currentPage)) ? parseInt(currentPage) : 1;
+
+      const optsParams = Object.assign({}, opts, {
+        isActive: true,
+      });
+
+      let landings = this.model('landing').find(optsParams).select(select);
+      let count = this.model('landing').countDocuments(optsParams);
+
+      landings.limit(Number(limit));
+      landings.skip(Number(limit) * (currentPage - 1));
+      landings.sort({'created_at': -1});
+
+      landings = await landings.lean().exec();
+      count = await count.exec();
+
+      return {
+        landings,
+        currentPage,
+        totRecords: count,
+        totPages: Math.ceil(count / Number(limit)) || 1
+      };
+
+    }
+
+  };
+
   landingSchema.methods = {
 
     /**

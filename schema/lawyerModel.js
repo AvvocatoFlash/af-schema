@@ -210,6 +210,20 @@ module.exports = mongoose => {
     },
 
     /**
+     * Reset Credits/Points
+     */
+    resetCredits: async function () {
+
+      const lawyer = this;
+      lawyer.credits = 0;
+      lawyer.points = 0;
+
+      await lawyer.save();
+
+      return lawyer;
+    },
+
+    /**
      * Filter Keys
      * @return {Object} Custom Keys
      */

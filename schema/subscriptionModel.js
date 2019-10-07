@@ -15,7 +15,8 @@ module.exports = mongoose => {
     customer: {type: Object},
     source: {type: Object},
     bundleId: {type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'bundle', require: true, unique: true},
-    amount: {type: String}, //to remove
+    amount: {type: String}, // store amount from bundle
+    credits: {type: Number}, //store credits from bundle
     begin_at: {type: String},
     note: {type: String},
     end_at: {type: String},

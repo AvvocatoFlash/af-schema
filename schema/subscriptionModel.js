@@ -14,7 +14,7 @@ module.exports = mongoose => {
     lawyer: {type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer', require: true, unique: true},
     customer: {type: Object},
     source: {type: Object},
-    bundleId: {type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'bundle', require: true, unique: true},
+    bundleId: {type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'bundle', require: true},
     amount: {type: String}, // store amount from bundle
     credits: {type: Number}, //store credits from bundle
     begin_at: {type: String},

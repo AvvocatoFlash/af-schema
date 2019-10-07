@@ -14,7 +14,8 @@ module.exports = mongoose => {
     lawyer: {type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'lawyer', require: true, unique: true},
     customer: {type: Object},
     source: {type: Object},
-    amount: {type: String},
+    bundleId: {type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'bundle', require: true, unique: true},
+    amount: {type: String}, //to remove
     begin_at: {type: String},
     note: {type: String},
     end_at: {type: String},

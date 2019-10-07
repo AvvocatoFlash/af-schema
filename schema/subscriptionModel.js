@@ -69,7 +69,7 @@ module.exports = mongoose => {
     filterKeys: function () {
 
       const obj = this.toObject();
-      const filtered = pick(obj, '_id', 'status', 'lawyer', 'amount', 'begin_at', 'end_at', 'bundleId', 'amount', 'unsubscribe_at', 'decline_reason');
+      const filtered = pick(obj, '_id', 'status', 'lawyer', 'amount', 'credits', 'begin_at', 'end_at', 'bundleId', 'amount', 'unsubscribe_at', 'decline_reason');
 
       if(filtered.begin_at) {
         filtered.begin_at = moment(filtered.begin_at).toDate()

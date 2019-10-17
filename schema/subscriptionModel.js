@@ -19,6 +19,7 @@ module.exports = mongoose => {
     credits: {type: Number}, //store credits from bundle
     begin_at: {type: String},
     note: {type: String},
+    card: {type: String},
     end_at: {type: String},
     unsubscribe_at: {type: Date},
     decline_reason: {type: String},
@@ -69,7 +70,7 @@ module.exports = mongoose => {
     filterKeys: function () {
 
       const obj = this.toObject();
-      const filtered = pick(obj, '_id', 'status', 'lawyer', 'amount', 'credits', 'begin_at', 'end_at', 'bundleId', 'amount', 'unsubscribe_at', 'decline_reason');
+      const filtered = pick(obj, '_id', 'status', 'lawyer', 'amount', 'card', 'credits', 'begin_at', 'end_at', 'bundleId', 'amount', 'unsubscribe_at', 'decline_reason');
 
       if(filtered.begin_at) {
         filtered.begin_at = moment(filtered.begin_at).toDate()

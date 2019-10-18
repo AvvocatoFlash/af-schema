@@ -12,6 +12,7 @@ module.exports = mongoose => {
 
   let invoiceSchema = mongoose.Schema({
     einvoiceId: {type: Number}, // id fattura elettronica
+    subscriptionId: {type: mongoose.Schema.Types.ObjectId, field: "_id", ref: 'subscription'},
     subscription: {type: Boolean},
     subscriptionFrom: {type: String},
     subscriptionTo: {type: String},
